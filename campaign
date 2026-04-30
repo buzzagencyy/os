@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<link rel="icon" type="image/png" href="https://raw.githubusercontent.com/ahmedraaamdan/englishzone/main/PNG.png">
-<link rel="apple-touch-icon" href="https://raw.githubusercontent.com/ahmedraaamdan/englishzone/main/PNG.png">
+<link rel="icon" type="image/png" href="buzzagencyy/os">
+<link rel="apple-touch-icon" href="https://raw.githubusercontent.com/buzzagencyy/os/main/PNG.png">
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Campaign OS — Editor</title>
@@ -388,7 +388,7 @@ input::placeholder,textarea::placeholder{font-family:'Cairo',sans-serif!importan
 <div id="userLoginScreen">
   <div class="login-box">
     <div class="login-logo">
-      <img src="https://raw.githubusercontent.com/ahmedraaamdan/englishzone/main/PNG.png" alt="Buzz Agency Logo">
+      <img src="https://raw.githubusercontent.com/buzzagencyy/os/main/PNG.png" alt="Buzz Agency Logo">
     </div>
     <h1 id="loginCampaignTitle" style="color:#FF5500">Buzz Agency</h1>
     <p style="color:#7A5C4E;margin-bottom:28px">Campaign OS — ادخل بيانات حسابك</p>
@@ -823,7 +823,7 @@ input::placeholder,textarea::placeholder{font-family:'Cairo',sans-serif!importan
 // CONFIG
 // ==========================================
   let currentMonth = new Date();
-const BUZZ_LOGO_URL = "https://raw.githubusercontent.com/ahmedraaamdan/englishzone/main/PNG.png";
+const BUZZ_LOGO_URL = "https://raw.githubusercontent.com/buzzagencyy/os/main/PNG.png";
 
 const SUPABASE_URL = "https://nnhxnswtzcqjnsmvytzr.supabase.co";
 const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5uaHhuc3d0emNxam5zbXZ5dHpyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcxNjM1MjEsImV4cCI6MjA5MjczOTUyMX0.h0k7PS5zWx_SGGFGIvkh3w7SfSfhPHiVmh1x8HUYx0s";
