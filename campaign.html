@@ -1450,6 +1450,37 @@ function renderScripts(){
       <textarea data-sf="body" data-i="${i}" style="min-height:130px">${et(s.body)}</textarea>
       <label class="field-label" style="margin-top:8px">الـ CTA</label>
       <input type="text" value="${ea(s.cta)}" data-sf="cta" data-i="${i}" placeholder="اتصل الآن">
+      <div class="comments-box">
+  <div class="comments-head">
+    <strong>Comments</strong>
+    <span>${(Array.isArray(s.comments)?s.comments.length:0)} comments</span>
+  </div>
+
+  <div class="comment-input-row">
+    <div class="comment-avatar">${(currentUser?.name||"U").charAt(0).toUpperCase()}</div>
+    <textarea id="scriptComment-${i}" placeholder="Write a comment..."></textarea>
+    <button type="button" data-add-script-comment="${i}">Send</button>
+  </div>
+
+  ${(Array.isArray(s.comments)&&s.comments.length) ? `
+    <div class="comments-list">
+      ${s.comments.map((c,ci) => `
+        <div class="comment-item">
+          <div class="comment-avatar small">${(c.by||"U").charAt(0).toUpperCase()}</div>
+          <div class="comment-bubble">
+            <div class="comment-meta">
+              <strong>${c.by}</strong>
+              <span>${c.date}</span>
+              ${(c.by === (currentUser?.username||"") || IS_SUPER_ADMIN)
+                ? `<button data-del-script-comment="${i}" data-idx="${ci}">حذف</button>`
+                : ""}
+            </div>
+            <div class="comment-text">${c.text}</div>
+          </div>
+        </div>
+      `).join("")}
+    </div>` : ""}
+</div>
     </div>`).join("");
 }
 
@@ -1740,6 +1771,48 @@ document.addEventListener("click", function(e){
     return;
   }
 
+  // Add script comment
+const addScriptComment = t.dataset.addScriptComment;
+if(addScriptComment !== undefined){
+  const i = +addScriptComment;
+  const input = document.getElementById(`scriptComment-${i}`);
+  const text = input?.value.trim();
+
+  if(!text){ setStatus("اكتب الكومنت الأول","warn"); return; }
+
+  if(!Array.isArray(D.scripts[i].comments)) D.scripts[i].comments = [];
+
+  D.scripts[i].comments.push({
+    text,
+    by: currentUser?.username || "unknown",
+    date: new Date().toLocaleString("ar-EG")
+  });
+
+  input.value = "";
+  renderScripts();
+  updateJsonOutput();
+  return;
+}
+
+  // Delete script comment
+const delScriptComment = t.dataset.delScriptComment;
+if(delScriptComment !== undefined){
+  const i = +delScriptComment;
+  const idx = +t.dataset.idx;
+
+  const comment = D.scripts[i].comments[idx];
+
+  if(comment.by !== (currentUser?.username||"") && !IS_SUPER_ADMIN){
+    setStatus("مش مسموح ❌","bad");
+    return;
+  }
+
+  D.scripts[i].comments.splice(idx,1);
+  renderScripts();
+  updateJsonOutput();
+  return;
+}
+
   // Delete post comment
   const delComment = t.dataset.delPostComment;
   if(delComment !== undefined){
@@ -1880,7 +1953,18 @@ document.addEventListener("DOMContentLoaded", function(){
 
   // Add buttons
   document.getElementById("addScriptBtn").addEventListener("click", function(){
-    D.scripts.push({title:"",location:"",actors:[],duration:"",type:"ad",hook:"",body:"",cta:""});
+    D.scripts.push({
+  title:"",
+  location:"",
+  actors:[],
+  duration:"",
+  type:"ad",
+  hook:"",
+  body:"",
+  cta:"",
+  comments:[]
+});
+    
     renderScripts(); updateJsonOutput();
   });
   document.getElementById("addPostBtn").addEventListener("click", function(){
