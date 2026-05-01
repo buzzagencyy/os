@@ -640,7 +640,7 @@ input::placeholder,textarea::placeholder{font-family:'Cairo',sans-serif!importan
           <div class="grid-2">
             <div>
               <div class="field"><label class="field-label">الفئة العمرية</label><input type="text" id="ageRange" placeholder="18–35"></div>
-              <div class="field"><label class="field-label">الجنس</label><select id="gender"><option value="all">الكل</option><option value="male">ذكور</option><option value="female">إناث</option></select></div>
+              <div class="field"><label class="field-label">الجنس</label><select id="gender"><option value="">— اختر —</option><option value="all">الكل</option><option value="male">ذكور</option><option value="female">إناث</option></select></div>
               <div class="field"><label class="field-label">الموقع</label><input type="text" id="location" placeholder="مصر، القاهرة الكبرى"></div>
             </div>
             <div>
@@ -783,7 +783,8 @@ input::placeholder,textarea::placeholder{font-family:'Cairo',sans-serif!importan
             <div>
               <div class="field"><label class="field-label">ميزانية المؤثرين</label><input type="text" id="budgetInfluencer" placeholder="Influencer budget"></div>
               <div class="field"><label class="field-label">العملة</label>
-                <select id="currency">
+<select id="currency">
+                  <option value="">— اختر العملة —</option>
                   <option value="EGP">جنيه مصري (EGP)</option>
                   <option value="USD">دولار (USD)</option>
                   <option value="SAR">ريال سعودي (SAR)</option>
@@ -846,10 +847,10 @@ const DEFAULT_DATA = {
     heroBg1:"#000000",heroBg2:"#B5FC02",bigIdeaBg1:"#000000",bigIdeaBg2:"#B5FC02",
     logo:"",font:"Cairo",style:"modern",brandNotes:""
   },
-  objectives:{type:"",notes:"",ageRange:"",gender:"all",location:"",interests:"",painPoints:"",platforms:[]},
+  objectives:{type:"",notes:"",ageRange:"",gender:"",location:"",interests:"",painPoints:"",platforms:[]},
   scripts:[],stories:[],posts:[],ads:[],calendar:[],phases:[],
   kpis:{reach:"",engagement:"",leads:"",visits:"",conversions:"",roas:"",views:"",ctr:"",successDef:""},
-  budget:{total:"",production:"",ads:"",influencer:"",currency:"EGP",notes:""}
+  budget:{total:"",production:"",ads:"",influencer:"",currency:"",notes:""}
 };
 
 let D = {};
@@ -1715,8 +1716,9 @@ document.addEventListener("click", function(e){
   // Delete post image
   const delPostImg = t.dataset.delPostImage;
   if(delPostImg !== undefined){
-    D.posts[+delPostImg].designImage = "";
+D.posts[+delPostImg].designImage = "";
     renderPosts(); updateJsonOutput();
+    triggerAutoSave();
     setStatus("تم حذف صورة البوست","ok");
     return;
   }
@@ -1788,9 +1790,10 @@ if(addScriptComment !== undefined){
     date: new Date().toLocaleString("ar-EG")
   });
 
-  input.value = "";
+input.value = "";
   renderScripts();
   updateJsonOutput();
+  triggerAutoSave();
   return;
 }
 
@@ -1807,9 +1810,10 @@ if(delScriptComment !== undefined){
     return;
   }
 
-  D.scripts[i].comments.splice(idx,1);
+D.scripts[i].comments.splice(idx,1);
   renderScripts();
   updateJsonOutput();
+  triggerAutoSave();
   return;
 }
 
@@ -1831,17 +1835,12 @@ if(delScriptComment !== undefined){
   }
 
   // Delete script
-  if(t.dataset.delScript !== undefined){ D.scripts.splice(+t.dataset.delScript,1); renderScripts(); updateJsonOutput(); return; }
-  // Delete post
-  if(t.dataset.delPost   !== undefined){ D.posts.splice(+t.dataset.delPost,1);     renderPosts();   updateJsonOutput(); return; }
-  // Delete story
-  if(t.dataset.delStory  !== undefined){ D.stories.splice(+t.dataset.delStory,1);  renderStories(); updateJsonOutput(); return; }
-  // Delete ad
-  if(t.dataset.delAd     !== undefined){ D.ads.splice(+t.dataset.delAd,1);         renderAds();     updateJsonOutput(); return; }
-  // Delete calendar
-  if(t.dataset.delCal    !== undefined){ D.calendar.splice(+t.dataset.delCal,1);   renderCalendar();updateJsonOutput(); return; }
-  // Delete phase
-  if(t.dataset.delPhase  !== undefined){ D.phases.splice(+t.dataset.delPhase,1);   renderPhases();  updateJsonOutput(); return; }
+if(t.dataset.delScript !== undefined){ D.scripts.splice(+t.dataset.delScript,1); renderScripts(); updateJsonOutput(); triggerAutoSave(); return; }
+  if(t.dataset.delPost   !== undefined){ D.posts.splice(+t.dataset.delPost,1);     renderPosts();   updateJsonOutput(); triggerAutoSave(); return; }
+  if(t.dataset.delStory  !== undefined){ D.stories.splice(+t.dataset.delStory,1);  renderStories(); updateJsonOutput(); triggerAutoSave(); return; }
+  if(t.dataset.delAd     !== undefined){ D.ads.splice(+t.dataset.delAd,1);         renderAds();     updateJsonOutput(); triggerAutoSave(); return; }
+  if(t.dataset.delCal    !== undefined){ D.calendar.splice(+t.dataset.delCal,1);   generateCalendar(); updateJsonOutput(); triggerAutoSave(); return; }
+  if(t.dataset.delPhase  !== undefined){ D.phases.splice(+t.dataset.delPhase,1);   renderPhases();  updateJsonOutput(); triggerAutoSave(); return; }
 });
 
 document.addEventListener("input", function(e){
@@ -1870,7 +1869,13 @@ document.addEventListener("input", function(e){
   // Post fields
   else if(t.dataset.pf !== undefined){ D.posts[+t.dataset.i][t.dataset.pf] = t.value; updateJsonOutput(); }
   // Post review status
-  else if(t.dataset.postReviewStatus !== undefined){ D.posts[+t.dataset.postReviewStatus].reviewStatus = t.value; updateJsonOutput(); }
+ else if(t.dataset.postReviewStatus !== undefined){
+    const pi = +t.dataset.postReviewStatus;
+    D.posts[pi].reviewStatus = t.value;
+    t.className = `mini-select status-select ${t.value}`;
+    updateJsonOutput();
+    triggerAutoSave();
+  }
   // Story fields
   else if(t.dataset.storyText     !== undefined){ D.stories[+t.dataset.storyText].text     = t.value; updateJsonOutput(); }
   else if(t.dataset.storyCta      !== undefined){ D.stories[+t.dataset.storyCta].cta       = t.value; updateJsonOutput(); }
@@ -2171,8 +2176,9 @@ const entry = {
 
   document.getElementById("calendarPopup").classList.add("hidden");
 
-  generateCalendar();
+generateCalendar();
   updateJsonOutput();
+  saveData();
 }
   
 // عرض الكونتنت في اليوم
@@ -2239,6 +2245,7 @@ function deleteCalendarItem(){
 
   generateCalendar();
   updateJsonOutput();
+  saveData();
 }
   
 </script>
