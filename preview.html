@@ -553,7 +553,24 @@ function render(c) {
       <div class="content-card">
         <div class="content-card-header">
           <div class="card-num">${i+1}</div>
-          <div class="card-title-block"><h3>${safe(s.title||'Script '+(i+1))}</h3></div>
+<div class="card-title-block">
+            <h3>${safe(s.title||'Reel '+(i+1))}</h3>
+            <div style="display:flex;gap:6px;align-items:center;margin-top:4px;flex-wrap:wrap">
+              ${s.reviewStatus ? `<span style="font-size:10px;font-weight:900;padding:2px 8px;border-radius:6px;${
+                s.reviewStatus==='approved'?'background:#DCFCE7;color:#166534':
+                s.reviewStatus==='published'?'background:#F3E8FF;color:#6B21A8':
+                s.reviewStatus==='scheduled'?'background:#DBEAFE;color:#1E40AF':
+                s.reviewStatus==='rejected'?'background:#FEF2F2;color:#991B1B':
+                'background:#FEF9C3;color:#854D0E'
+              }">${
+                s.reviewStatus==='approved'?'✅ Approved':
+                s.reviewStatus==='published'?'🚀 Published':
+                s.reviewStatus==='scheduled'?'🗓 Scheduled':
+                s.reviewStatus==='rejected'?'❌ Rejected':'✏️ Need Edit'
+              }</span>` : ''}
+              ${(()=>{ const cal = (c.calendar||[]).find(e=>e.type==='script'&&e.title===(s.tov||s.title)); return cal?`<span style="font-size:10px;font-weight:800;color:#64748B">📅 Day ${cal.day}</span>`:''; })()}
+            </div>
+          </div>
         </div>
         <div class="meta-pills">
           ${s.type?`<span class="pill">${safe(s.type)}</span>`:''}
@@ -580,7 +597,24 @@ function render(c) {
       <div class="content-card">
         <div class="content-card-header">
           <div class="card-num">${i+1}</div>
-          <div class="card-title-block"><h3>Post ${i+1}</h3></div>
+<div class="card-title-block">
+          <h3>Post ${i+1}</h3>
+          <div style="display:flex;gap:6px;align-items:center;margin-top:4px;flex-wrap:wrap">
+            ${p.reviewStatus ? `<span style="font-size:10px;font-weight:900;padding:2px 8px;border-radius:6px;${
+              p.reviewStatus==='approved'?'background:#DCFCE7;color:#166534':
+              p.reviewStatus==='published'?'background:#F3E8FF;color:#6B21A8':
+              p.reviewStatus==='scheduled'?'background:#DBEAFE;color:#1E40AF':
+              p.reviewStatus==='rejected'?'background:#FEF2F2;color:#991B1B':
+              'background:#FEF9C3;color:#854D0E'
+            }">${
+              p.reviewStatus==='approved'?'✅ Approved':
+              p.reviewStatus==='published'?'🚀 Published':
+              p.reviewStatus==='scheduled'?'🗓 Scheduled':
+              p.reviewStatus==='rejected'?'❌ Rejected':'✏️ Need Edit'
+            }</span>` : ''}
+            ${(()=>{ const cal = (c.calendar||[]).find(e=>e.type==='post'&&e.title===(p.tov||p.title)); return cal?`<span style="font-size:10px;font-weight:800;color:#64748B">📅 Day ${cal.day}</span>`:''; })()}
+          </div>
+        </div>
         </div>
         <div class="meta-pills">
           ${p.platform?`<span class="pill">${safe(PLATFORM_ICONS[p.platform]||p.platform)}</span>`:''}
