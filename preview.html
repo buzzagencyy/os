@@ -580,7 +580,7 @@ function render(c) {
       <div class="content-card">
         <div class="content-card-header">
           <div class="card-num">${i+1}</div>
-          <div class="card-title-block"><h3>${safe(p.title||'Post '+(i+1))}</h3></div>
+          <div class="card-title-block"><h3>Post ${i+1}</h3></div>
         </div>
         <div class="meta-pills">
           ${p.platform?`<span class="pill">${safe(PLATFORM_ICONS[p.platform]||p.platform)}</span>`:''}
