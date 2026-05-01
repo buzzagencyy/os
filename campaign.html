@@ -2071,7 +2071,7 @@ function generateCalendar(){
 const year = currentMonth.getFullYear();
   const month = currentMonth.getMonth();
 
-const firstDay = (new Date(year, month, 1).getDay() + 8) % 7;
+const firstDay = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month+1, 0).getDate();
   const prevMonthDays = new Date(year, month, 0).getDate();
 
@@ -2216,14 +2216,19 @@ function changeMonth(step){
   const y = currentMonth.getFullYear();
   const m = currentMonth.getMonth() + 1;
 
-const mp = document.getElementById("monthPicker");
-if(mp){
-  mp.value = `${y}-${String(m).padStart(2,"0")}`;
-}
+  const mp = document.getElementById("monthPicker");
+  if(mp){
+    mp.value = `${y}-${String(m).padStart(2,"0")}`;
+  }
+
+  // حفظ الشهر في D عشان البريفيو يقراه
+  if(!D.client) D.client = {};
+  D.client.calendarMonth = `${y}-${String(m).padStart(2,"0")}`;
+
   generateCalendar();
   localStorage.setItem("calMonth", currentMonth);
+  updateJsonOutput();
 }
-
 function deleteCalendarItem(){
   if(!D.calendar) return;
 
