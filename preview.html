@@ -476,6 +476,9 @@ cell.className = 'cal-cell ' + (mainType ? 'type-' + mainType : '');
 
 // ─── MAIN RENDER ───────────────────────────────────────────────────────────
 function render(c) {
+  // إخفاء كل nav links في البداية
+  document.querySelectorAll('.nav-inner a[id^="nav-"]').forEach(a => a.style.display = 'none');
+
   const client = c.client  || {};
   const hero   = c.hero    || {};
   const theme  = c.theme   || {};
