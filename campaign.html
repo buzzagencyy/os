@@ -1540,7 +1540,8 @@ function renderPosts(){
           </div>
           <div class="badge-group">
             <span class="badge-label">Status</span>
-<option ${p.reviewStatus==="under_review"?"selected":""} value="under_review">👀 Under Review</option>
+        <select class="mini-select status-select ${s.reviewStatus||"need_edit"}" data-script-review-status="${i}" style="min-width:130px">
+        <option ${s.reviewStatus==="under_review"?"selected":""} value="under_review">👀 Under Review</option>
               <option ${p.reviewStatus==="approved"?"selected":""} value="approved">✅ Approved</option>
               <option ${p.reviewStatus==="scheduled"?"selected":""} value="scheduled">🗓 Scheduled</option>
               <option ${p.reviewStatus==="published"?"selected":""} value="published">🚀 Published</option>
