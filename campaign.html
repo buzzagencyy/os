@@ -1893,11 +1893,27 @@ else if(t.dataset.postReviewStatus !== undefined){
     updateJsonOutput();
     triggerAutoSave();
   }
-  else if(t.dataset.scriptReviewStatus !== undefined){
-  // Story fields
-  else if(t.dataset.storyText     !== undefined){ D.stories[+t.dataset.storyText].text     = t.value; updateJsonOutput(); }
-  else if(t.dataset.storyCta      !== undefined){ D.stories[+t.dataset.storyCta].cta       = t.value; updateJsonOutput(); }
-  else if(t.dataset.storyPlatform !== undefined){ D.stories[+t.dataset.storyPlatform].platform = t.value; updateJsonOutput(); }
+else if(t.dataset.scriptReviewStatus !== undefined){
+  const si = +t.dataset.scriptReviewStatus;
+  D.scripts[si].reviewStatus = t.value;
+  t.className = `mini-select status-select ${t.value}`;
+  updateJsonOutput();
+  triggerAutoSave();
+}
+
+// Story fields
+else if(t.dataset.storyText !== undefined){
+  D.stories[+t.dataset.storyText].text = t.value;
+  updateJsonOutput();
+}
+else if(t.dataset.storyCta !== undefined){
+  D.stories[+t.dataset.storyCta].cta = t.value;
+  updateJsonOutput();
+}
+else if(t.dataset.storyPlatform !== undefined){
+  D.stories[+t.dataset.storyPlatform].platform = t.value;
+  updateJsonOutput();
+}
   // Ad fields
   else if(t.dataset.af !== undefined){ D.ads[+t.dataset.i][t.dataset.af] = t.value; updateJsonOutput(); }
   // Calendar fields
