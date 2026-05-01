@@ -214,6 +214,11 @@ input[type=color]{border:1.5px solid #E5E5E5;border-radius:8px;padding:2px;heigh
 .status-select.published{background:#F3E8FF!important;color:#6B21A8!important;border-color:#A855F7!important;}
 .status-select.need_edit{background:#FEF9C3!important;color:#854D0E!important;border-color:#EAB308!important;}
 .status-select.rejected{background:#FEF2F2!important;color:#991B1B!important;border-color:#EF4444!important;}
+  .status-select.under_review{
+  background:#FFF7ED!important;
+  color:#C2410C!important;
+  border-color:#FB923C!important;
+}
 .post-delete-btn{border:0;background:#EF4444;color:white;border-radius:10px;height:34px!important;padding:0 12px;font-weight:900;cursor:pointer;align-self:flex-end!important;}
 .upload-box-clean{border:1.5px dashed #BFDBFE;border-radius:16px;padding:16px;background:#F8FAFC;text-align:center;min-height:170px;}
 .upload-icon{font-size:28px;margin-bottom:6px}
@@ -1409,6 +1414,7 @@ function renderScripts(){
         <span class="item-num">${i+1}</span>
 <span class="item-title">Reel ${i+1}: ${ea(s.title||"New Reel")}</span>
         <select class="mini-select status-select ${s.reviewStatus||"need_edit"}" data-script-review-status="${i}" style="min-width:130px">
+        <option ${s.reviewStatus==="under_review"?"selected":""} value="under_review">👀 Under Review</option>
           <option ${s.reviewStatus==="approved"?"selected":""} value="approved">✅ Approved</option>
           <option ${s.reviewStatus==="scheduled"?"selected":""} value="scheduled">🗓 Scheduled</option>
           <option ${s.reviewStatus==="published"?"selected":""} value="published">🚀 Published</option>
@@ -1534,7 +1540,7 @@ function renderPosts(){
           </div>
           <div class="badge-group">
             <span class="badge-label">Status</span>
-<select class="mini-select status-select ${p.reviewStatus||"need_edit"}" data-post-review-status="${i}">
+<option ${p.reviewStatus==="under_review"?"selected":""} value="under_review">👀 Under Review</option>
               <option ${p.reviewStatus==="approved"?"selected":""} value="approved">✅ Approved</option>
               <option ${p.reviewStatus==="scheduled"?"selected":""} value="scheduled">🗓 Scheduled</option>
               <option ${p.reviewStatus==="published"?"selected":""} value="published">🚀 Published</option>
