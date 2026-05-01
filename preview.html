@@ -345,7 +345,7 @@ const PLATFORM_ICONS = {
 };
 
 // ─── CALENDAR RENDERER (fully rewritten) ───────────────────────────────────
-function renderCalendar(calData, startDateStr) {
+function renderCalendar(calData, startDateStr, client) {
   // normalise calData to flat array
   let items = [];
   if (Array.isArray(calData)) items = calData;
@@ -355,8 +355,12 @@ function renderCalendar(calData, startDateStr) {
 
   // determine which month to display
   let year, month;
-  if (startDateStr) {
-    // try parse "YYYY-MM-DD" or "1 مايو" etc.
+// أولوية لـ calendarMonth اللي اتحدد في الداشبورد
+  const calMonthStr = (typeof client !== 'undefined' && client.calendarMonth) ? client.calendarMonth : null;
+  if (calMonthStr) {
+    const d = new Date(calMonthStr + "-01");
+    if (!isNaN(d)) { year = d.getFullYear(); month = d.getMonth(); }
+  } else if (startDateStr) {
     const d = new Date(startDateStr);
     if (!isNaN(d)) { year = d.getFullYear(); month = d.getMonth(); }
   }
@@ -365,7 +369,7 @@ function renderCalendar(calData, startDateStr) {
   const MONTH_NAMES = ['January','February','March','April','May','June','July','August','September','October','November','December'];
   $('calendarMonthLabel').textContent = MONTH_NAMES[month] + ' ' + year;
 
-  const firstDow  = (new Date(year, month, 1).getDay() + 9) % 7;   // 0=Sun
+  const firstDow  = new Date(year, month, 1).getDay();   // 0=Sun
   const daysInMon = new Date(year, month + 1, 0).getDate();
   const prevDays  = new Date(year, month, 0).getDate();
 
@@ -578,7 +582,7 @@ function render(c) {
 
   if (calData.length) {
     showSection('calendar');
-    renderCalendar(calData, client.start);
+    renderCalendar(calData, client.start, client);
   }
 
   // ── BUDGET ────────────────────────────────────────────────────────────────
