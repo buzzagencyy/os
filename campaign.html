@@ -210,8 +210,10 @@ input[type=color]{border:1.5px solid #E5E5E5;border-radius:8px;padding:2px;heigh
 .platform-select{min-width:145px!important}
 .status-select{min-width:140px!important}
 .status-select.approved{background:#DCFCE7!important;color:#166534!important;border-color:#22C55E!important;}
-.status-select.rejected{background:#FEF2F2!important;color:#991B1B!important;border-color:#EF4444!important;}
+.status-select.scheduled{background:#DBEAFE!important;color:#1E40AF!important;border-color:#3B82F6!important;}
+.status-select.published{background:#F3E8FF!important;color:#6B21A8!important;border-color:#A855F7!important;}
 .status-select.need_edit{background:#FEF9C3!important;color:#854D0E!important;border-color:#EAB308!important;}
+.status-select.rejected{background:#FEF2F2!important;color:#991B1B!important;border-color:#EF4444!important;}
 .post-delete-btn{border:0;background:#EF4444;color:white;border-radius:10px;height:34px!important;padding:0 12px;font-weight:900;cursor:pointer;align-self:flex-end!important;}
 .upload-box-clean{border:1.5px dashed #BFDBFE;border-radius:16px;padding:16px;background:#F8FAFC;text-align:center;min-height:170px;}
 .upload-icon{font-size:28px;margin-bottom:6px}
@@ -1405,7 +1407,14 @@ function renderScripts(){
     <div class="list-item">
       <div class="list-item-head">
         <span class="item-num">${i+1}</span>
-        <span class="item-title">Script ${i+1}: ${ea(s.title||"New Script")}</span>
+<span class="item-title">Reel ${i+1}: ${ea(s.title||"New Reel")}</span>
+        <select class="mini-select status-select ${s.reviewStatus||"need_edit"}" data-script-review-status="${i}" style="min-width:130px">
+          <option ${s.reviewStatus==="approved"?"selected":""} value="approved">✅ Approved</option>
+          <option ${s.reviewStatus==="scheduled"?"selected":""} value="scheduled">🗓 Scheduled</option>
+          <option ${s.reviewStatus==="published"?"selected":""} value="published">🚀 Published</option>
+          <option ${s.reviewStatus==="need_edit"||!s.reviewStatus?"selected":""} value="need_edit">✏️ Need Edit</option>
+          <option ${s.reviewStatus==="rejected"?"selected":""} value="rejected">❌ Rejected</option>
+        </select>
         <button class="btn btn-danger btn-sm" data-del-script="${i}">حذف</button>
       </div>
       <div class="grid-2">
@@ -1502,10 +1511,16 @@ function renderPosts(){
           <div class="badge-group">
             <span class="badge-label">Platform</span>
             <select class="mini-select platform-select" data-pf="platform" data-i="${i}">
-              <option ${p.platform==="facebook"?"selected":""} value="facebook">Facebook</option>
+<option ${p.platform==="facebook"?"selected":""} value="facebook">Facebook</option>
               <option ${p.platform==="instagram"?"selected":""} value="instagram">Instagram</option>
               <option ${p.platform==="tiktok"?"selected":""} value="tiktok">TikTok</option>
-              <option ${p.platform==="all"?"selected":""} value="all">All</option>
+              <option ${p.platform==="youtube"?"selected":""} value="youtube">YouTube</option>
+              <option ${p.platform==="snapchat"?"selected":""} value="snapchat">Snapchat</option>
+              <option ${p.platform==="twitter"?"selected":""} value="twitter">X (Twitter)</option>
+              <option ${p.platform==="linkedin"?"selected":""} value="linkedin">LinkedIn</option>
+              <option ${p.platform==="google"?"selected":""} value="google">Google Ads</option>
+              <option ${p.platform==="threads"?"selected":""} value="threads">Threads</option>
+              <option ${p.platform==="all"?"selected":""} value="all">All Platforms</option>
             </select>
           </div>
           <div class="badge-group">
@@ -1519,10 +1534,12 @@ function renderPosts(){
           </div>
           <div class="badge-group">
             <span class="badge-label">Status</span>
-            <select class="mini-select status-select ${p.reviewStatus||"need_edit"}" data-post-review-status="${i}">
-              <option ${p.reviewStatus==="approved"?"selected":""} value="approved">Approved</option>
-              <option ${p.reviewStatus==="rejected"?"selected":""} value="rejected">Rejected</option>
-              <option ${p.reviewStatus==="need_edit"||!p.reviewStatus?"selected":""} value="need_edit">Need Edit</option>
+<select class="mini-select status-select ${p.reviewStatus||"need_edit"}" data-post-review-status="${i}">
+              <option ${p.reviewStatus==="approved"?"selected":""} value="approved">✅ Approved</option>
+              <option ${p.reviewStatus==="scheduled"?"selected":""} value="scheduled">🗓 Scheduled</option>
+              <option ${p.reviewStatus==="published"?"selected":""} value="published">🚀 Published</option>
+              <option ${p.reviewStatus==="need_edit"||!p.reviewStatus?"selected":""} value="need_edit">✏️ Need Edit</option>
+              <option ${p.reviewStatus==="rejected"?"selected":""} value="rejected">❌ Rejected</option>
             </select>
           </div>
           <button class="post-delete-btn" data-del-post="${i}">Delete</button>
@@ -1870,8 +1887,9 @@ document.addEventListener("input", function(e){
   else if(t.dataset.pf !== undefined){ D.posts[+t.dataset.i][t.dataset.pf] = t.value; updateJsonOutput(); }
   // Post review status
  else if(t.dataset.postReviewStatus !== undefined){
-    const pi = +t.dataset.postReviewStatus;
-    D.posts[pi].reviewStatus = t.value;
+else if(t.dataset.scriptReviewStatus !== undefined){
+    const si = +t.dataset.scriptReviewStatus;
+    D.scripts[si].reviewStatus = t.value;
     t.className = `mini-select status-select ${t.value}`;
     updateJsonOutput();
     triggerAutoSave();
