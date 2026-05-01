@@ -2139,7 +2139,7 @@ function fillIndexOptions(type){
   arr.forEach((item,i)=>{
     const op = document.createElement("option");
     op.value = i;
-    op.textContent = (i+1) + " - " + (item.tov || "بدون عنوان");
+    op.textContent = (i+1) + " - " + (item.tov || item.title || "بدون عنوان");
     select.appendChild(op);
   });
 }
