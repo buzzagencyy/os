@@ -1886,14 +1886,14 @@ document.addEventListener("input", function(e){
   // Post fields
   else if(t.dataset.pf !== undefined){ D.posts[+t.dataset.i][t.dataset.pf] = t.value; updateJsonOutput(); }
   // Post review status
- else if(t.dataset.postReviewStatus !== undefined){
-else if(t.dataset.scriptReviewStatus !== undefined){
-    const si = +t.dataset.scriptReviewStatus;
-    D.scripts[si].reviewStatus = t.value;
+else if(t.dataset.postReviewStatus !== undefined){
+    const pi = +t.dataset.postReviewStatus;
+    D.posts[pi].reviewStatus = t.value;
     t.className = `mini-select status-select ${t.value}`;
     updateJsonOutput();
     triggerAutoSave();
   }
+  else if(t.dataset.scriptReviewStatus !== undefined){
   // Story fields
   else if(t.dataset.storyText     !== undefined){ D.stories[+t.dataset.storyText].text     = t.value; updateJsonOutput(); }
   else if(t.dataset.storyCta      !== undefined){ D.stories[+t.dataset.storyCta].cta       = t.value; updateJsonOutput(); }
