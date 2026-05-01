@@ -1413,7 +1413,7 @@ function renderScripts(){
       <div class="list-item-head">
         <span class="item-num">${i+1}</span>
 <span class="item-title">Reel ${i+1}: ${ea(s.title||"New Reel")}</span>
-        <select class="mini-select status-select ${p.reviewStatus||"need_edit"}" data-post-review-status="${i}" style="min-width:130px">
+        <select class="mini-select status-select ${p.reviewStatus||"need_edit"}" data-script-review-status="${i}" style="min-width:130px">
         <option ${s.reviewStatus==="under_review"?"selected":""} value="under_review">👀 Under Review</option>
           <option ${s.reviewStatus==="approved"?"selected":""} value="approved">✅ Approved</option>
           <option ${s.reviewStatus==="scheduled"?"selected":""} value="scheduled">🗓 Scheduled</option>
