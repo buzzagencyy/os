@@ -1413,9 +1413,9 @@ function renderScripts(){
       <div class="list-item-head">
         <span class="item-num">${i+1}</span>
 <span class="item-title">Reel ${i+1}: ${ea(s.title||"New Reel")}</span>
-        <select class="mini-select status-select ${p.reviewStatus||"need_edit"}" data-script-review-status="${i}" style="min-width:130px">
-        <option ${s.reviewStatus==="under_review"?"selected":""} value="under_review">👀 Under Review</option>
-          <option ${s.reviewStatus==="approved"?"selected":""} value="approved">✅ Approved</option>
+<select class="mini-select status-select ${s.reviewStatus||"need_edit"}" data-script-review-status="${i}" style="min-width:140px">
+<option ${s.reviewStatus==="under_review"?"selected":""} value="under_review">👀 Under Review</option>
+<option ${s.reviewStatus==="approved"?"selected":""} value="approved">✅ Approved</option>
           <option ${s.reviewStatus==="scheduled"?"selected":""} value="scheduled">🗓 Scheduled</option>
           <option ${s.reviewStatus==="published"?"selected":""} value="published">🚀 Published</option>
           <option ${s.reviewStatus==="need_edit"||!s.reviewStatus?"selected":""} value="need_edit">✏️ Need Edit</option>
@@ -1541,7 +1541,7 @@ function renderPosts(){
           <div class="badge-group">
             <span class="badge-label">Status</span>
         <select class="mini-select status-select ${p.reviewStatus||"need_edit"}" data-post-review-status="${i}" style="min-width:130px">
-        <option ${s.reviewStatus==="under_review"?"selected":""} value="under_review">👀 Under Review</option>
+        <option ${p.reviewStatus==="under_review"?"selected":""} value="under_review">👀 Under Review</option>
               <option ${p.reviewStatus==="approved"?"selected":""} value="approved">✅ Approved</option>
               <option ${p.reviewStatus==="scheduled"?"selected":""} value="scheduled">🗓 Scheduled</option>
               <option ${p.reviewStatus==="published"?"selected":""} value="published">🚀 Published</option>
