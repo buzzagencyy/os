@@ -120,13 +120,12 @@ body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--text-main);
   font-weight:800;
   line-height:1.3;
 }
-
 .cal-cell.type-post{background:#DBEAFE}
 .cal-cell.type-story{background:#FEF3C7}
 .cal-cell.type-script{background:#DCFCE7}
 .cal-cell.type-reel{background:#FFF7ED}
 .cal-cell.type-video{background:#F5F3FF}
-.cal-cell.type-ad{background:#FEF2F2}  
+.cal-cell.type-ad{background:#FEF2F2}
 .cal-event.type-post{background:#DBEAFE;color:#1D4ED8}
 .cal-event.type-story{background:#FEF3C7;color:#92400E}
 .cal-event.type-script{background:#DCFCE7;color:#166534}
@@ -134,6 +133,22 @@ body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--text-main);
 .cal-event.type-video{background:#F5F3FF;color:#6D28D9}
 .cal-event.type-ad{background:#FEF2F2;color:#B91C1C}
 .cal-event-type{font-size:9px;opacity:.7;text-transform:uppercase;letter-spacing:.3px}
+
+/* MOBILE CALENDAR — list view */
+.cal-mobile-list{display:none;flex-direction:column;gap:10px}
+.cal-mobile-item{display:flex;align-items:flex-start;gap:12px;background:#fff;border:1px solid var(--border);border-radius:14px;padding:14px 16px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.cal-mobile-day{min-width:42px;text-align:center;background:var(--bg);border-radius:10px;padding:8px 6px;flex-shrink:0}
+.cal-mobile-day-num{font-size:22px;font-weight:900;color:var(--dark);line-height:1;display:block}
+.cal-mobile-day-name{font-size:10px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;display:block;margin-top:2px}
+.cal-mobile-content{flex:1;min-width:0}
+.cal-mobile-type{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;opacity:.7}
+.cal-mobile-title{font-size:14px;font-weight:800;color:var(--dark);line-height:1.4;word-break:break-word}
+.cal-mobile-item.type-post{border-right:4px solid #1D4ED8;background:#F8FBFF}
+.cal-mobile-item.type-story{border-right:4px solid #D97706;background:#FFFDF5}
+.cal-mobile-item.type-script{border-right:4px solid #16A34A;background:#F6FFF8}
+.cal-mobile-item.type-reel{border-right:4px solid #C2410C;background:#FFFAF5}
+.cal-mobile-item.type-video{border-right:4px solid #6D28D9;background:#FAF8FF}
+.cal-mobile-item.type-ad{border-right:4px solid #B91C1C;background:#FFF8F8}
 /* ======= END CALENDAR ======= */
 
 .audience-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
@@ -156,7 +171,8 @@ footer .footer-brand{font-size:16px;font-weight:900;color:white;margin-bottom:6p
 @media(max-width:700px){
   .hero{padding:48px 16px 40px}
   .content-grid{grid-template-columns:1fr}
-  .cal-grid,.calendar-header-row{grid-template-columns:repeat(7,minmax(44px,1fr))}
+  .cal-grid,.calendar-header-row{display:none}
+  .cal-mobile-list{display:flex}
 }
 </style>
 </head>
@@ -426,6 +442,34 @@ cell.className = 'cal-cell ' + (mainType ? 'type-' + mainType : '');
     cell.innerHTML = `<span class="cal-day-num">${i}</span>`;
     grid.appendChild(cell);
   }
+
+// Mobile list view
+  const DAY_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const mobileList = document.createElement('div');
+  mobileList.className = 'cal-mobile-list';
+  const eventDays = Object.keys(lookup).map(Number).sort((a,b)=>a-b);
+  if(eventDays.length){
+    eventDays.forEach(day => {
+      const dayDate = new Date(year, month, day);
+      const dayName = DAY_NAMES[dayDate.getDay()];
+      (lookup[day]||[]).forEach(ev => {
+        const type = (ev.type||'post').toLowerCase();
+        const item = document.createElement('div');
+        item.className = `cal-mobile-item type-${type}`;
+        item.innerHTML = `
+          <div class="cal-mobile-day">
+            <span class="cal-mobile-day-num">${day}</span>
+            <span class="cal-mobile-day-name">${dayName}</span>
+          </div>
+          <div class="cal-mobile-content">
+            <div class="cal-mobile-type">${safe(type)}</div>
+            <div class="cal-mobile-title">${safe(ev.title||ev.type||'')}</div>
+          </div>`;
+        mobileList.appendChild(item);
+      });
+    });
+  }
+  grid.parentElement.appendChild(mobileList);
 
   return true;
 }
