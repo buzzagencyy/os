@@ -1110,10 +1110,10 @@ function openUserModal(userId = null) {
       document.getElementById("u_role").value = u.role || "editor";
       // Permissions
       const perms = u.permissions || {};
-      ["overview","branding","hero","objectives","scripts","posts","stories","ads","adsCopy","calendar","phases","kpis","budget","save"].forEach(p => {
-        const el = document.getElementById("p_" + p);
-        if (el) el.checked = perms[p] !== false;
-      });
+["overview","branding","hero","objectives","scripts","posts","stories","ads","calendar","phases","kpis","budget","save"].forEach(p => {
+    const el = document.getElementById("p_" + p);
+    if (el) permissions[p] = el.checked;
+  });
       // Selected campaigns
       if (u.campaigns) {
         u.campaigns.forEach(cid => {
@@ -1127,7 +1127,7 @@ function openUserModal(userId = null) {
     document.getElementById("u_username").value = "";
     document.getElementById("u_pass").value = "";
     document.getElementById("u_role").value = "editor";
-    ["overview","branding","hero","objectives","scripts","posts","stories","ads","adsCopy","calendar","phases","kpis","budget","save"].forEach(p => {
+    ["overview","branding","hero","objectives","scripts","posts","stories","ads","calendar","phases","kpis","budget","save"].forEach(p => {
       const el = document.getElementById("p_" + p);
       if (el) el.checked = !["budget","adsCopy"].includes(p);
     });
