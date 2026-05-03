@@ -1108,12 +1108,12 @@ function openUserModal(userId = null) {
       document.getElementById("u_username").value = u.username || "";
       document.getElementById("u_pass").value = "";
       document.getElementById("u_role").value = u.role || "editor";
-      // Permissions
+// Permissions
       const perms = u.permissions || {};
-["overview","branding","hero","objectives","scripts","posts","stories","ads","calendar","phases","kpis","budget","save"].forEach(p => {
-    const el = document.getElementById("p_" + p);
-    if (el) permissions[p] = el.checked;
-  });
+      ["overview","branding","hero","objectives","scripts","posts","stories","ads","calendar","phases","kpis","budget","save"].forEach(p => {
+        const el = document.getElementById("p_" + p);
+        if (el) el.checked = perms[p] !== false;
+      });
       // Selected campaigns
       if (u.campaigns) {
         u.campaigns.forEach(cid => {
@@ -1155,11 +1155,10 @@ async function saveUser() {
     document.querySelectorAll("#campaignPicker .campaign-pick-item.sel")
   ).map(el => el.dataset.campaignId);
 
-  const permissions = {};
-  ["overview","branding","hero","objectives","scripts","posts","stories","ads","adsCopy","calendar","phases","kpis","budget","save"].forEach(p => {
+ const permissions = {};
+  ["overview","branding","hero","objectives","scripts","posts","stories","ads","calendar","phases","kpis","budget","save"].forEach(p => {
     const el = document.getElementById("p_" + p);
- if (el) permissions[p] = el.checked;
-if (p === "ads" && el) permissions.adsCopy = el.checked;
+    if (el) permissions[p] = el.checked;
   });
 
   const userData = {
