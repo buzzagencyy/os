@@ -342,7 +342,14 @@ body.dark-mode{
 }
 body.dark-mode .sticky-nav{background:rgba(14,12,10,0.95)}
 body.dark-mode .cal-cell{background:#1A1714}
+  .cal-cell.type-post{background:#EFF6FF;border-color:#BFDBFE}
+.cal-cell.type-story{background:#FFFBEB;border-color:#FDE68A}
+.cal-cell.type-script{background:#F0FDF4;border-color:#BBF7D0}
+.cal-cell.type-reel{background:#FFF7ED;border-color:#FED7AA}
+.cal-cell.type-video{background:#F5F3FF;border-color:#DDD6FE}
+.cal-cell.type-ad{background:#FEF2F2;border-color:#FECACA}
 body.dark-mode .cal-mobile-item{background:#1A1714}
+  
   
 /* ══════════════════════════════════
    BIG IDEA CARD
@@ -1069,7 +1076,7 @@ const OBJ_LABELS={
 };
 
 const PLATFORM_ICONS={
-  facebook:'🔵 Facebook',instagram:'📸 Instagram',tiktok:'🎵 TikTok',
+  facebook:'👤 Facebook',instagram:'📷 Instagram',tiktok:'🎵 TikTok',
   youtube:'▶️ YouTube',twitter:'🐦 X (Twitter)',snapchat:'👻 Snapchat',
   linkedin:'💼 LinkedIn',google:'🔍 Google Ads'
 };
@@ -1194,7 +1201,7 @@ function render(c){
   if(theme.logo){$('heroLogo').src=theme.logo;$('heroLogo').style.display='block';}
 
   // Hero
-  $('heroBadge').textContent=[client.name,client.campaignName].filter(Boolean).join(' · ')||'Campaign';
+  $('heroBadge').textContent = client.name || 'Campaign';
   $('heroTitle').textContent=hero.title||client.campaignName||'Campaign';
   $('heroSubtitle').textContent=hero.subtitle||'';
   $('navBrand').textContent=client.name||'Campaign OS';
@@ -1269,6 +1276,16 @@ function render(c){
           ${s.duration?`<span class="pill accent">⏱ ${safe(s.duration)}</span>`:''}
           ${s.location?`<span class="pill">📍 ${safe(s.location)}</span>`:''}
         </div>
+        ${Array.isArray(s.actors)&&s.actors.length?`
+<div class="card-section-label">Cast</div>
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px">
+  ${s.actors.map(a=>`
+    <div style="text-align:center">
+      <img src="${safe(a.image)}" style="width:48px;height:48px;border-radius:50%;object-fit:cover;border:2px solid var(--border)">
+      <div style="font-size:11px;font-weight:800;margin-top:4px">${safe(a.name)}</div>
+      <div style="font-size:10px;color:var(--muted)">${safe(a.age)} سنة</div>
+    </div>`).join('')}
+</div>`:''}
         ${s.hook?`<div class="card-section-label">Hook 🪝</div><div class="body-text" style="font-weight:800;color:var(--text-main)">${safe(s.hook)}</div>`:''}
         ${s.body?`<div class="card-section-label">Script</div><div class="body-text">${safe(s.body)}</div>`:''}
         ${s.cta?`<div class="cta-badge">📢 ${safe(s.cta)}</div>`:''}
@@ -1468,7 +1485,10 @@ const observer = new IntersectionObserver((entries) => {
 document.querySelectorAll('.section-block').forEach(el => observer.observe(el));
 
 // Dark mode toggle
+  
 const darkBtn = document.getElementById('darkToggle');
+if(!darkBtn){ console.error('darkToggle not found'); }
+else {
 if(localStorage.getItem('preview_dark')==='1'){
   document.body.classList.add('dark-mode');
   darkBtn.textContent='☀️';
@@ -1479,6 +1499,7 @@ darkBtn.addEventListener('click',()=>{
   darkBtn.textContent = isDark ? '☀️' : '🌙';
   localStorage.setItem('preview_dark', isDark ? '1' : '0');
 });
+}
   
 </script>
   <button class="dark-toggle" id="darkToggle">🌙</button>
