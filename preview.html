@@ -888,6 +888,7 @@ footer{
 <!-- STICKY NAV -->
 <nav class="sticky-nav">
   <div class="nav-inner">
+        <!-- <span class="nav-brand" id="navBrand">Buzz OS</span> -->
     <a href="#bigidea"    id="nav-bigidea"    style="display:none">Big Idea</a>
     <a href="#objectives" id="nav-objectives" style="display:none">Objectives</a>
     <a href="#audience"   id="nav-audience"   style="display:none">Audience</a>
@@ -1203,7 +1204,7 @@ function render(c){
   $('heroBadge').textContent = client.name || 'Campaign';
   $('heroTitle').textContent=hero.title||client.campaignName||'Campaign';
   $('heroSubtitle').textContent=hero.subtitle||'';
-  $('navBrand').textContent=client.name||'Campaign OS';
+  // $('navBrand').textContent=client.name||'Campaign OS';
   $('footerBrand').textContent=client.name||'Buzz Agency';
   $('footerSub').textContent=client.campaignName||'';
 
