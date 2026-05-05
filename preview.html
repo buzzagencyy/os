@@ -1105,14 +1105,25 @@ function renderCalendar(calData, startDateStr, client){
   let items=[];
   if(Array.isArray(calData)) items=calData;
   else if(calData&&typeof calData==='object') items=Object.values(calData).flat();
-  items=items.filter(i=>i&&!isEmpty(i.day));
+
+items=items.filter(i=>i&&!isEmpty(i.day));
+// filter by month/year if present
+const hasMonthYear = items.some(i=>i.month&&i.year);
+  
   if(!items.length) return false;
 
   let year,month;
-  const calMonthStr=client?.calendarMonth;
-  if(calMonthStr){const d=new Date(calMonthStr+"-01");if(!isNaN(d)){year=d.getFullYear();month=d.getMonth();}}
-  else if(startDateStr){const d=new Date(startDateStr);if(!isNaN(d)){year=d.getFullYear();month=d.getMonth();}}
-  if(year===undefined){const now=new Date();year=now.getFullYear();month=now.getMonth();}
+const calMonthStr=client?.calendarMonth;
+if(calMonthStr){
+  const d=new Date(calMonthStr+"-01");
+  if(!isNaN(d)){year=d.getFullYear();month=d.getMonth();}
+}
+if(year===undefined){
+  // fallback: get year/month from items themselves
+  const firstWithDate=items.find(i=>i.month&&i.year);
+  if(firstWithDate){year=Number(firstWithDate.year);month=Number(firstWithDate.month)-1;}
+}
+if(year===undefined){const now=new Date();year=now.getFullYear();month=now.getMonth();}
 
   const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
   $('calendarMonthLabel').textContent=MONTHS[month]+' '+year;
@@ -1122,8 +1133,14 @@ function renderCalendar(calData, startDateStr, client){
   const prevDays=new Date(year,month,0).getDate();
 
   const lookup={};
-  items.forEach(item=>{const d=Number(item.day);if(!d)return;if(!lookup[d])lookup[d]=[];lookup[d].push(item);});
-
+items.forEach(item=>{
+  const d=Number(item.day);if(!d)return;
+  if(item.month&&item.year){
+    if(item.month!=month+1||item.year!=year)return;
+  }
+  if(!lookup[d])lookup[d]=[];lookup[d].push(item);
+});
+  
   const grid=$('calGrid');
   grid.innerHTML='';
 
