@@ -312,6 +312,17 @@ input::placeholder,textarea::placeholder{font-family:'Cairo',sans-serif!importan
   z-index:999;
 }
 
+
+ .cal-day.post{background:#EFF6FF;border-color:#BFDBFE}
+.cal-day.story{background:#FFFBEB;border-color:#FDE68A}
+.cal-day.script{background:#F0FDF4;border-color:#BBF7D0}
+.cal-day.reel{background:#FFF7ED;border-color:#FED7AA}
+.cal-day.video{background:#F5F3FF;border-color:#DDD6FE}
+.cal-item.post{background:#DBEAFE;color:#1D4ED8}
+.cal-item.story{background:#FEF3C7;color:#92400E}
+.cal-item.script{background:#DCFCE7;color:#166534}
+.cal-item.reel{background:#FFF7ED;color:#C2410C} 
+
 .hidden{display:none;}
 
 .popup-box{
@@ -2132,7 +2143,9 @@ for(let i = 0; i < firstDay; i++){
   // 👈 أيام الشهر الحالي
 for(let day = 1; day <= daysInMonth; day++){
 
-  const item = D.calendar?.find(e => e.day == day);
+const curY = currentMonth.getFullYear();
+  const curM = currentMonth.getMonth() + 1;
+  const item = D.calendar?.find(e => e.day == day && e.year == curY && e.month == curM);
 
   const div = document.createElement("div");
   div.className = "cal-day " + (item?.type || "");
@@ -2199,6 +2212,8 @@ function saveCalendarItem(){
 
 const entry = {
     day: Number(calSelectedDay),
+    month: currentMonth.getMonth() + 1,
+    year: currentMonth.getFullYear(),
     type,
     title: item?.tov || item?.title || "بدون عنوان"
   };
@@ -2226,7 +2241,9 @@ generateCalendar();
 function renderCalContent(day){
   if(!D.calendar) return "";
 
-  const item = D.calendar.find(e => Number(e.day) === day);
+const curY = currentMonth.getFullYear();
+  const curM = currentMonth.getMonth() + 1;
+  const item = D.calendar.find(e => Number(e.day) === day && e.year == curY && e.month == curM);
   if(!item) return "";
 
   let color = "#eee";
@@ -2280,7 +2297,9 @@ generateCalendar();
 function deleteCalendarItem(){
   if(!D.calendar) return;
 
-  D.calendar = D.calendar.filter(e => e.day !== calSelectedDay);
+const curY = currentMonth.getFullYear();
+  const curM = currentMonth.getMonth() + 1;
+  D.calendar = D.calendar.filter(e => !(e.day === calSelectedDay && e.year == curY && e.month == curM));
 
   document.getElementById("calendarPopup").classList.add("hidden");
 
