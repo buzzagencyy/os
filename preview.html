@@ -1475,7 +1475,13 @@ async function load(){
     const campaignId=params.get('id');
     if(!campaignId) throw new Error('No campaign id in URL');
 
-    const {data,error}=await sb.from('campaigns').select('*').eq('id',campaignId).maybeSingle();
+    const { data, error } = await sb
+  .from('campaigns')
+  .select('*')
+  .eq('id', campaignId)
+  .order('updated_at', { ascending: false })
+  .limit(1)
+  .single();
     if(error) throw error;
     if(!data||!data.data) throw new Error('No campaign data found');
 
