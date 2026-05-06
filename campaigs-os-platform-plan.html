@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Campaign OS — Platform Plan v3.0 | Buzz Agency</title>
+<link rel="shortcut icon" href="https://raw.githubusercontent.com/buzzagencyy/os/refs/heads/main/PNG.png">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --primary:#FF5500;
+  --primary-hover:#E84D00;
+  --primary-glow:rgba(255,85,0,0.35);
+  --primary-light:rgba(255,85,0,0.08);
+  --primary-mid:rgba(255,85,0,0.18);
+  --sidebar-bg:#0D0602;
+  --bg:#F2F0ED;
+  --bg2:#E8E5E1;
+  --card:#FFFFFF;
+  --card2:#F9F8F6;
+  --text:#111008;
+  --text2:#3D3A35;
+  --muted:#9A9590;
+  --border:#E0DDD8;
+  --border2:#CCC9C3;
+  --danger:#E53E3E;
+  --success:#2D9B5A;
+  --warn:#D97706;
+  --radius:16px;
+  --radius-sm:10px;
+  --shadow:0 2px 8px rgba(0,0,0,.05),0 8px 32px rgba(0,0,0,.07);
+  --shadow-card:0 1px 3px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.06);
+}
+
+body{
+  font-family:'Cairo',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ══════════════════════ PRINT ══════════════════════ */
+@media print{
+  .no-print{display:none!important}
+  body{background:#fff}
+  .page-break{page-break-before:always}
+  .cover{min-height:auto;padding:40px}
+}
+
+/* ══════════════════════ TOP NAV ══════════════════════ */
+.topnav{
+  position:sticky;top:0;z-index:100;
+  background:var(--sidebar-bg);
+  border-bottom:1px solid rgba(255,85,0,0.15);
+  padding:0 32px;
+  height:58px;
+  display:flex;align-items:center;justify-content:space-between;
+  backdrop-filter:blur(12px);
+}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-logo img{width:30px;height:30px;object-fit:contain}
+.nav-logo-text{font-size:16px;font-weight:700;color:#fff;letter-spacing:-0.3px}
+.nav-logo-text span{color:var(--primary)}
+.nav-badge{
+  background:var(--primary-mid);
+  border:1px solid var(--primary-glow);
+  color:var(--primary);
+  font-size:11px;font-weight:600;
+  padding:3px 10px;border-radius:20px;
+}
+.nav-actions{display:flex;gap:10px;align-items:center}
+.nav-btn{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);
+  color:rgba(255,255,255,0.7);
+  padding:6px 16px;border-radius:8px;
+  font-family:'Cairo',sans-serif;font-size:12px;font-weight:500;
+  cursor:pointer;transition:all 0.2s;
+}
+.nav-btn:hover{background:rgba(255,85,0,0.12);border-color:var(--primary);color:var(--primary)}
+.nav-btn.primary{background:var(--primary);border-color:var(--primary);color:#fff}
+.nav-btn.primary:hover{background:var(--primary-hover)}
+
+/* ══════════════════════ COVER ══════════════════════ */
+.cover{
+  background:var(--sidebar-bg);
+  padding:80px 40px 60px;
+  position:relative;
+  overflow:hidden;
+  min-height:92vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+}
+.cover::before{
+  content:"";position:absolute;
+  width:800px;height:800px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,85,0,0.10) 0%,transparent 70%);
+  top:-200px;right:-200px;pointer-events:none;
+}
+.cover::after{
+  content:"";position:absolute;
+  width:500px;height:500px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,85,0,0.06) 0%,transparent 70%);
+  bottom:-100px;left:-100px;pointer-events:none;
+}
+.cover-logo{
+  width:72px;height:72px;
+  background:var(--primary-mid);
+  border:2px solid var(--primary-glow);
+  border-radius:20px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:24px;
+  position:relative;z-index:1;
+}
+.cover-logo img{width:44px;height:44px;object-fit:contain}
+.cover-eyebrow{
+  font-size:12px;font-weight:600;letter-spacing:3px;text-transform:uppercase;
+  color:var(--primary);opacity:0.9;
+  margin-bottom:16px;position:relative;z-index:1;
+}
+.cover-title{
+  font-size:clamp(42px,6vw,72px);font-weight:900;
+  color:#fff;line-height:1.05;text-align:center;
+  margin-bottom:8px;position:relative;z-index:1;
+}
+.cover-title span{color:var(--primary)}
+.cover-subtitle{
+  font-size:18px;font-weight:400;color:rgba(255,255,255,0.45);
+  text-align:center;margin-bottom:40px;position:relative;z-index:1;
+}
+.cover-metrics{
+  display:flex;gap:1px;
+  background:rgba(255,85,0,0.12);
+  border:1px solid rgba(255,85,0,0.2);
+  border-radius:16px;overflow:hidden;
+  position:relative;z-index:1;
+  margin-bottom:40px;
+}
+.cover-metric{
+  padding:20px 32px;text-align:center;
+  background:rgba(13,6,2,0.6);
+  border-left:1px solid rgba(255,85,0,0.1);
+  flex:1;
+}
+.cover-metric:first-child{border-left:none}
+.cover-metric-val{
+  font-size:28px;font-weight:900;color:#fff;line-height:1;
+  margin-bottom:4px;
+}
+.cover-metric-val span{color:var(--primary)}
+.cover-metric-lbl{font-size:11px;color:rgba(255,255,255,0.35);font-weight:500}
+.cover-summary{
+  max-width:680px;text-align:center;
+  font-size:14px;color:rgba(255,255,255,0.45);line-height:1.8;
+  position:relative;z-index:1;
+}
+.cover-divider{
+  width:60px;height:3px;
+  background:linear-gradient(90deg,var(--primary),transparent);
+  margin:32px auto;border-radius:2px;
+  position:relative;z-index:1;
+}
+
+/* ══════════════════════ SECTION WRAPPER ══════════════════════ */
+.section{padding:60px 40px;max-width:1200px;margin:0 auto}
+.section-alt{background:var(--bg2)}
+.section-dark{background:var(--sidebar-bg)}
+
+.section-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:36px;
+  padding-bottom:20px;
+  border-bottom:1px solid var(--border);
+}
+.section-dark .section-header{border-bottom-color:rgba(255,85,0,0.12)}
+.section-header-right{display:flex;align-items:center;gap:12px}
+.section-icon{
+  width:40px;height:40px;border-radius:10px;
+  background:var(--primary-light);
+  border:1px solid var(--primary-mid);
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;
+}
+.section-title{font-size:22px;font-weight:800;color:var(--text)}
+.section-dark .section-title{color:#fff}
+.section-title-en{font-size:12px;font-weight:500;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+.section-dark .section-title-en{color:rgba(255,255,255,0.3)}
+.section-tag{
+  background:var(--primary-light);border:1px solid var(--primary-mid);
+  color:var(--primary);font-size:11px;font-weight:600;
+  padding:4px 12px;border-radius:20px;
+}
+
+/* ══════════════════════ PERSONAS ══════════════════════ */
+.personas-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;
+}
+.persona-card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:20px;
+  position:relative;overflow:hidden;
+  transition:transform 0.2s,box-shadow 0.2s;
+  border-top:3px solid var(--primary);
+}
+.persona-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.persona-card::before{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--primary-light) 0%,transparent 60%);
+  pointer-events:none;
+}
+.persona-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.persona-emoji{
+  width:44px;height:44px;border-radius:12px;
+  background:var(--primary-light);border:1px solid var(--primary-mid);
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;flex-shrink:0;
+}
+.persona-name-en{font-size:14px;font-weight:700;color:var(--text)}
+.persona-name-ar{font-size:12px;color:var(--muted);margin-top:1px}
+.persona-duties{list-style:none;display:flex;flex-direction:column;gap:5px}
+.persona-duties li{
+  font-size:12px;color:var(--text2);
+  padding-right:14px;position:relative;
+}
+.persona-duties li::before{
+  content:"";position:absolute;right:0;top:7px;
+  width:5px;height:5px;border-radius:50%;background:var(--primary);
+}
+
+/* ══════════════════════ PRICING ══════════════════════ */
+.pricing-grid{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:32px;
+}
+.tier-card{
+  background:var(--card2);border:1px solid var(--border);
+  border-radius:var(--radius);padding:20px 16px;
+  position:relative;overflow:hidden;text-align:center;
+  transition:transform 0.2s,box-shadow 0.2s;
+}
+.tier-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.tier-card.featured{
+  background:var(--sidebar-bg);
+  border-color:var(--primary);
+  box-shadow:0 0 0 1px var(--primary),0 8px 40px rgba(255,85,0,0.2);
+}
+.tier-badge{
+  position:absolute;top:-1px;left:50%;transform:translateX(-50%);
+  background:var(--primary);color:#fff;
+  font-size:10px;font-weight:700;padding:3px 14px;border-radius:0 0 10px 10px;
+  white-space:nowrap;
+}
+.tier-name{font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.tier-card.featured .tier-name{color:rgba(255,255,255,0.5)}
+.tier-price{font-size:32px;font-weight:900;color:var(--text);line-height:1}
+.tier-card.featured .tier-price{color:#fff}
+.tier-price span{font-size:14px;font-weight:400;color:var(--muted)}
+.tier-period{font-size:11px;color:var(--muted);margin-bottom:16px}
+.tier-card.featured .tier-period{color:rgba(255,255,255,0.3)}
+.tier-divider{height:1px;background:var(--border);margin:12px 0}
+.tier-card.featured .tier-divider{background:rgba(255,85,0,0.2)}
+.tier-features{list-style:none;display:flex;flex-direction:column;gap:7px;text-align:right}
+.tier-features li{
+  font-size:11px;color:var(--text2);
+  display:flex;align-items:center;justify-content:flex-end;gap:6px;
+}
+.tier-card.featured .tier-features li{color:rgba(255,255,255,0.6)}
+.tier-features li .feat-val{font-weight:700;color:var(--primary);font-size:12px}
+.tier-features li .feat-no{color:var(--muted)}
+
+/* permissions table */
+.perm-table{width:100%;border-collapse:collapse;background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-card)}
+.perm-table th{background:var(--sidebar-bg);color:#fff;padding:12px 16px;font-size:12px;font-weight:600;text-align:center}
+.perm-table th:first-child{text-align:right}
+.perm-table td{padding:10px 16px;border-bottom:1px solid var(--border);font-size:12px;text-align:center;color:var(--text2)}
+.perm-table tr:last-child td{border-bottom:none}
+.perm-table tr:nth-child(even) td{background:var(--card2)}
+.perm-table td:first-child{text-align:right;font-weight:600;color:var(--text)}
+.perm-check{color:var(--success);font-size:15px}
+.perm-cross{color:var(--danger);font-size:15px}
+
+/* ══════════════════════ FEATURES ══════════════════════ */
+.features-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}
+.feature-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--radius);padding:22px;
+  position:relative;overflow:hidden;
+  transition:transform 0.2s,box-shadow 0.2s;
+}
+.feature-card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.feature-card::after{
+  content:"";position:absolute;
+  bottom:0;right:0;
+  width:80px;height:80px;
+  background:var(--primary-light);
+  border-radius:50% 0 0 0;
+}
+.feature-head{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.feature-emoji{
+  width:42px;height:42px;border-radius:11px;
+  background:var(--primary-light);border:1px solid var(--primary-mid);
+  display:flex;align-items:center;justify-content:center;font-size:18px;
+}
+.feature-title-en{font-size:13px;font-weight:700;color:var(--text)}
+.feature-title-ar{font-size:11px;color:var(--muted);margin-top:1px}
+.feature-accent{width:28px;height:2px;background:var(--primary);border-radius:2px;margin-bottom:12px}
+.feature-list{list-style:none;display:flex;flex-direction:column;gap:6px}
+.feature-list li{
+  font-size:12px;color:var(--text2);
+  display:flex;align-items:flex-start;gap:8px;
+  padding-bottom:5px;border-bottom:1px solid var(--border);
+}
+.feature-list li:last-child{border-bottom:none}
+.feature-list li::before{content:"•";color:var(--primary);font-size:14px;flex-shrink:0;line-height:1.4}
+
+/* ══════════════════════ ARCHITECTURE ══════════════════════ */
+.arch-stack{display:flex;flex-direction:column;gap:3px}
+.arch-layer{
+  display:grid;grid-template-columns:180px 1fr;
+  border-radius:10px;overflow:hidden;
+}
+.arch-label{
+  background:var(--primary);
+  color:#fff;font-size:11px;font-weight:700;letter-spacing:0.5px;
+  padding:14px 16px;
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;
+}
+.arch-items{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,85,0,0.1);
+  padding:12px 20px;
+  display:flex;gap:8px;align-items:center;flex-wrap:wrap;
+}
+.arch-tag{
+  background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.08);
+  color:rgba(255,255,255,0.65);
+  font-size:11px;padding:4px 10px;border-radius:6px;
+}
+.arch-arrow{
+  display:flex;justify-content:center;align-items:center;
+  height:20px;color:rgba(255,85,0,0.4);font-size:18px;
+}
+
+/* ══════════════════════ ROADMAP ══════════════════════ */
+.roadmap-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.phase-card{
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,85,0,0.15);
+  border-radius:var(--radius);
+  padding:20px 16px;
+  position:relative;overflow:hidden;
+}
+.phase-card::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:3px;
+  background:var(--primary);
+}
+.phase-num{
+  font-size:42px;font-weight:900;
+  color:rgba(255,85,0,0.12);
+  position:absolute;top:12px;left:12px;
+  line-height:1;
+}
+.phase-title{font-size:14px;font-weight:800;color:#fff;margin-bottom:4px;position:relative;z-index:1}
+.phase-dur{
+  font-size:10px;color:rgba(255,85,0,0.7);
+  font-weight:600;margin-bottom:6px;
+  background:var(--primary-mid);
+  border:1px solid var(--primary-glow);
+  display:inline-block;padding:2px 8px;border-radius:20px;
+}
+.phase-goal{font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:14px;line-height:1.5}
+.phase-list{list-style:none;display:flex;flex-direction:column;gap:5px}
+.phase-list li{font-size:11px;color:rgba(255,255,255,0.55);display:flex;align-items:flex-start;gap:6px}
+.phase-list li::before{content:"›";color:var(--primary);flex-shrink:0;font-size:14px;line-height:1.3}
+
+/* ══════════════════════ REVENUE ══════════════════════ */
+.revenue-table{width:100%;border-collapse:collapse;background:var(--card);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-card)}
+.revenue-table th{background:var(--sidebar-bg);color:rgba(255,255,255,0.6);padding:12px 16px;font-size:11px;font-weight:600;text-align:center;letter-spacing:0.5px;text-transform:uppercase}
+.revenue-table th:first-child{text-align:right}
+.revenue-table td{padding:11px 16px;border-bottom:1px solid var(--border);font-size:12px;text-align:center;color:var(--text2)}
+.revenue-table tr:last-child td{background:var(--sidebar-bg);color:#fff;font-weight:700;border-bottom:none}
+.revenue-table tr:last-child td .rev-val{color:var(--primary)}
+.revenue-table tr:nth-child(even) td{background:var(--card2)}
+.revenue-table td:first-child{text-align:right;font-weight:600;color:var(--text)}
+.revenue-table tr:last-child td:first-child{color:#fff}
+.rev-group-header{background:rgba(255,85,0,0.06)!important}
+.rev-group-header td{color:var(--primary)!important;font-size:11px!important;font-weight:700!important;letter-spacing:1px;text-transform:uppercase}
+
+/* ══════════════════════ METRICS ══════════════════════ */
+.metrics-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.metric-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--radius);padding:24px;
+  border-top:3px solid var(--primary);
+  position:relative;overflow:hidden;
+}
+.metric-card::after{
+  content:"";position:absolute;
+  bottom:-20px;left:-20px;
+  width:80px;height:80px;
+  background:var(--primary-light);
+  border-radius:50%;
+}
+.metric-phase{font-size:11px;font-weight:700;color:var(--primary);margin-bottom:12px;letter-spacing:0.5px}
+.metric-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+.metric-list li{
+  display:flex;align-items:center;justify-content:space-between;
+  font-size:13px;color:var(--text2);
+  padding-bottom:8px;border-bottom:1px solid var(--border);
+}
+.metric-list li:last-child{border-bottom:none;padding-bottom:0}
+.metric-list li strong{color:var(--text);font-weight:700}
+
+/* ══════════════════════ NEXT STEPS ══════════════════════ */
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.step-card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:var(--radius);padding:20px 16px;
+  position:relative;text-align:center;
+  transition:transform 0.2s,box-shadow 0.2s;
+}
+.step-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.step-num{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--primary);color:#fff;
+  font-size:16px;font-weight:900;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 12px;
+}
+.step-icon{font-size:24px;margin-bottom:8px}
+.step-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:4px}
+.step-sub{font-size:11px;color:var(--muted)}
+.step-done{
+  position:absolute;top:10px;right:10px;
+  background:rgba(45,155,90,0.1);color:var(--success);
+  font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;
+  border:1px solid rgba(45,155,90,0.2);
+}
+
+/* ══════════════════════ FOOTER ══════════════════════ */
+.footer{
+  background:var(--sidebar-bg);
+  border-top:1px solid rgba(255,85,0,0.15);
+  padding:32px 40px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:20px;
+}
+.footer-logo{display:flex;align-items:center;gap:10px}
+.footer-logo img{width:28px;height:28px;object-fit:contain}
+.footer-logo-text{font-size:14px;font-weight:700;color:#fff}
+.footer-logo-text span{color:var(--primary)}
+.footer-links{display:flex;gap:20px;align-items:center}
+.footer-link{font-size:12px;color:rgba(255,255,255,0.35);text-decoration:none;transition:color 0.2s}
+.footer-link:hover{color:var(--primary)}
+.footer-copy{font-size:11px;color:rgba(255,255,255,0.2)}
+
+/* ══════════════════════ TOC SIDEBAR ══════════════════════ */
+.toc-sidebar{
+  position:fixed;top:50%;left:20px;transform:translateY(-50%);
+  z-index:50;
+  display:flex;flex-direction:column;gap:6px;
+}
+.toc-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:rgba(255,85,0,0.25);
+  cursor:pointer;transition:all 0.2s;
+  position:relative;
+}
+.toc-dot:hover,.toc-dot.active{background:var(--primary);transform:scale(1.4)}
+.toc-dot::after{
+  content:attr(data-label);
+  position:absolute;left:16px;top:50%;transform:translateY(-50%);
+  background:var(--sidebar-bg);color:#fff;
+  font-size:10px;font-family:'Cairo',sans-serif;font-weight:600;
+  padding:4px 10px;border-radius:6px;
+  white-space:nowrap;opacity:0;pointer-events:none;
+  transition:opacity 0.2s;
+  border:1px solid rgba(255,85,0,0.2);
+}
+.toc-dot:hover::after{opacity:1}
+
+@media(max-width:900px){
+  .toc-sidebar{display:none}
+  .pricing-grid,.roadmap-grid{grid-template-columns:1fr 1fr}
+  .steps-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .cover-metrics{flex-direction:column}
+  .pricing-grid,.roadmap-grid,.steps-grid,.metrics-grid{grid-template-columns:1fr}
+  .arch-layer{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- TOC Dots -->
+<nav class="toc-sidebar no-print">
+  <div class="toc-dot active" data-label="الغلاف" onclick="scrollTo('#cover')"></div>
+  <div class="toc-dot" data-label="المستخدمون" onclick="scrollTo('#personas')"></div>
+  <div class="toc-dot" data-label="الأسعار" onclick="scrollTo('#pricing')"></div>
+  <div class="toc-dot" data-label="المميزات" onclick="scrollTo('#features')"></div>
+  <div class="toc-dot" data-label="الهيكل التقني" onclick="scrollTo('#arch')"></div>
+  <div class="toc-dot" data-label="خطة التطوير" onclick="scrollTo('#roadmap')"></div>
+  <div class="toc-dot" data-label="الإيرادات" onclick="scrollTo('#revenue')"></div>
+  <div class="toc-dot" data-label="الخطوات" onclick="scrollTo('#steps')"></div>
+</nav>
+
+<!-- TOP NAV -->
+<header class="topnav no-print">
+  <div class="nav-logo">
+    <img src="https://github.com/buzzagencyy/os/blob/main/PNG.png?raw=true" alt="Buzz Agency">
+    <span class="nav-logo-text">Buzz<span>Agency</span></span>
+    <div class="nav-badge">Campaign OS v3.0</div>
+  </div>
+  <div class="nav-actions">
+    <button class="nav-btn" onclick="window.print()">🖨 طباعة</button>
+    <button class="nav-btn primary">🚀 ابدأ المشروع</button>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════
+     COVER
+════════════════════════════════════════ -->
+<section class="cover" id="cover">
+  <div class="cover-logo">
+    <img src="https://github.com/buzzagencyy/os/blob/main/PNG.png?raw=true" alt="Buzz Agency">
+  </div>
+  <div class="cover-eyebrow">BUZZ AGENCY — INTERNAL PLATFORM PLAN</div>
+  <h1 class="cover-title">Campaign <span>OS</span></h1>
+  <p class="cover-subtitle">منصة إدارة الحملات التسويقية المتكاملة — الإصدار ٣.٠ الاحترافي</p>
+
+  <div class="cover-metrics">
+    <div class="cover-metric">
+      <div class="cover-metric-val"><span>5</span></div>
+      <div class="cover-metric-lbl">مراحل تطوير</div>
+    </div>
+    <div class="cover-metric">
+      <div class="cover-metric-val">$<span>199</span></div>
+      <div class="cover-metric-lbl">أعلى باقة / شهر</div>
+    </div>
+    <div class="cover-metric">
+      <div class="cover-metric-val"><span>7</span></div>
+      <div class="cover-metric-lbl">أدوار مستخدمين</div>
+    </div>
+    <div class="cover-metric">
+      <div class="cover-metric-val"><span>14</span></div>
+      <div class="cover-metric-lbl">وحدة وظيفية</div>
+    </div>
+    <div class="cover-metric">
+      <div class="cover-metric-val">$<span>100K</span>+</div>
+      <div class="cover-metric-lbl">عائد متوقع سنة ١</div>
+    </div>
+  </div>
+
+  <div class="cover-divider"></div>
+  <p class="cover-summary">
+    Campaign OS هي منصة SaaS احترافية تُمكّن شركات التسويق من إدارة جميع حملاتها لعملائها من مكان واحد. تدعم إدارة متعددة البراندات، فرق عمل بأدوار متخصصة، إدارة محتوى متكاملة، تخطيط وتقويم، تقارير وتحليلات، ونظام اشتراكات مرن بـ٥ باقات.
+  </p>
+</section>
+
+<!-- ═══════════════════════════════════════
+     PERSONAS
+════════════════════════════════════════ -->
+<section id="personas" style="background:var(--bg);padding:60px 40px;max-width:1200px;margin:0 auto">
+  <div class="section-header">
+    <div class="section-header-right">
+      <div class="section-icon">👥</div>
+      <div>
+        <div class="section-title">أدوار المستخدمين</div>
+        <div class="section-title-en">USER PERSONAS</div>
+      </div>
+    </div>
+    <div class="section-tag">٧ أدوار</div>
+  </div>
+
+  <div class="personas-grid">
+    <div class="persona-card">
+      <div class="persona-head">
+        <div class="persona-emoji">🏢</div>
+        <div>
+          <div class="persona-name-en">Agency Owner</div>
+          <div class="persona-name-ar">مدير الشركة</div>
+        </div>
+      </div>
+      <ul class="persona-duties">
+        <li>يدير الاشتراك والفواتير</li>
+        <li>يضيف/يحذف الموظفين</li>
+        <li>يشاهد تقارير الأداء العامة</li>
+        <li>يقرر الباقة والترقية</li>
+        <li>يدير العملاء (Clients)</li>
+      </ul>
+    </div>
+    <div class="persona-card">
+      <div class="persona-head">
+        <div class="persona-emoji">📋</div>
+        <div>
+          <div class="persona-name-en">Project Manager</div>
+          <div class="persona-name-ar">مدير المشاريع</div>
+        </div>
+      </div>
+      <ul class="persona-duties">
+        <li>يدير الكامبينز والجداول الزمنية</li>
+        <li>يوزع المهام على الفريق</li>
+        <li>يتابع حالة الموافقات (Approvals)</li>
+        <li>يتواصل مع العملاء</li>
+      </ul>
+    </div>
+    <div class="persona-card">
+      <div class="persona-head">
+        <div class="persona-emoji">✍️</div>
+        <div>
+          <div class="persona-name-en">Content Creator</div>
+          <div class="persona-name-ar">كاتب محتوى</div>
+        </div>
+      </div>
+      <ul class="persona-duties">
+        <li>يكتب الكابشنز والسكريبتات</li>
+        <li>يقترح أفكار المحتوى</li>
+        <li>يكتب نصوص الإعلانات (Ad Copy)</li>
+        <li>يتابع حالة الموافقة على المحتوى</li>
+      </ul>
+    </div>
+    <div class="persona-card">
+      <div class="persona-head">
+        <div class="persona-emoji">🎨</div>
+        <div>
+          <div class="persona-name-en">Graphic Designer</div>
+          <div class="persona-name-ar">مصمم جرافيك</div>
+        </div>
+      </div>
+      <ul class="persona-duties">
+        <li>يرفع التصاميم</li>
+        <li>يعدل على الهوية البصرية</li>
+        <li>يصمم قوالب المحتوى</li>
+        <li>يتابع تعليقات العميل على التصاميم</li>
+      </ul>
+    </div>
+    <div class="persona-card">
+      <div class="persona-head">
+        <div class="persona-emoji">📱</div>
+        <div>
+          <div class="persona-name-en">Social Media Specialist</div>
+          <div class="persona-name-ar">أخصائي سوشيال ميديا</div>
+        </div>
+      </div>
+      <ul class="persona-duties">
+        <li>يجدول المنشورات</li>
+        <li>يدير التعليقات والردود</li>
+        <li>يتابع أداء المنشورات</li>
+        <li>يقترح تحسينات على المحتوى</li>
+      </ul>
+    </div>
+    <div class="persona-card">
+      <div class="persona-head">
+        <div class="persona-emoji">🔍</div>
+        <div>
+          <div class="persona-name-en">SEO Specialist</div>
+          <div class="persona-name-ar">أخصائي SEO</div>
+        </div>
+      </div>
+      <ul class="persona-duties">
+        <li>يدير الكلمات المفتاحية</li>
+        <li>يتابع تحليلات SEO</li>
+        <li>يقترح تحسينات على المحتوى</li>
+        <li>يتابع ترتيب المواقع</li>
+      </ul>
+    </div>
+    <div class="persona-card">
+      <div class="persona-head">
+        <div class="persona-emoji">👁️</div>
+        <div>
+          <div class="persona-name-en">Client</div>
+          <div class="persona-name-ar">العميل النهائي</div>
+        </div>
+      </div>
+      <ul class="persona-duties">
+        <li>يشاهد التقارير والأداء</li>
+        <li>يوافق / يرفض المحتوى</li>
+        <li>يضيف تعليقات وملاحظات</li>
+        <li>يشاهد التقويم الزمني</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     PRICING
+════════════════════════════════════════ -->
+<div style="background:var(--bg2);padding:60px 0" id="pricing">
+<section style="max-width:1200px;margin:0 auto;padding:0 40px">
+  <div class="section-header">
+    <div class="section-header-right">
+      <div class="section-icon">💰</div>
+      <div>
+        <div class="section-title">باقات الاشتراك</div>
+        <div class="section-title-en">PRICING TIERS</div>
+      </div>
+    </div>
+    <div class="section-tag">توفير ١٧٪ سنوياً</div>
+  </div>
+
+  <div class="pricing-grid">
+    <!-- FREE -->
+    <div class="tier-card">
+      <div class="tier-name">FREE</div>
+      <div class="tier-price">$0</div>
+      <div class="tier-period">للأبد مجاناً</div>
+      <div class="tier-divider"></div>
+      <ul class="tier-features">
+        <li><span class="feat-val">1</span> براند</li>
+        <li><span class="feat-val">1</span> كامبين نشط</li>
+        <li><span class="feat-val">1</span> موظف</li>
+        <li><span class="feat-val">10</span> منشور/شهر</li>
+        <li><span class="feat-val">100MB</span> تخزين</li>
+        <li><span class="feat-no">—</span> White Label</li>
+      </ul>
+    </div>
+    <!-- STARTER -->
+    <div class="tier-card">
+      <div class="tier-name">STARTER</div>
+      <div class="tier-price">$15<span>/شهر</span></div>
+      <div class="tier-period">أو $150/سنة</div>
+      <div class="tier-divider"></div>
+      <ul class="tier-features">
+        <li><span class="feat-val">5</span> براندات</li>
+        <li><span class="feat-val">3</span> كامبين/براند</li>
+        <li><span class="feat-val">5</span> موظفين</li>
+        <li><span class="feat-val">50</span> منشور/شهر</li>
+        <li><span class="feat-val">5GB</span> تخزين</li>
+        <li><span class="feat-no">✗</span> White Label</li>
+      </ul>
+    </div>
+    <!-- PRO -->
+    <div class="tier-card featured">
+      <div class="tier-badge">⭐ الأكثر طلباً</div>
+      <div class="tier-name">PROFESSIONAL</div>
+      <div class="tier-price">$39<span>/شهر</span></div>
+      <div class="tier-period">أو $390/سنة</div>
+      <div class="tier-divider"></div>
+      <ul class="tier-features">
+        <li><span class="feat-val">20</span> براند</li>
+        <li><span class="feat-val">10</span> كامبين/براند</li>
+        <li><span class="feat-val">15</span> موظف</li>
+        <li><span class="feat-val">200</span> منشور/شهر</li>
+        <li><span class="feat-val">25GB</span> تخزين</li>
+        <li><span class="feat-val">✓</span> White Label</li>
+      </ul>
+    </div>
+    <!-- ENTERPRISE -->
+    <div class="tier-card">
+      <div class="tier-name">ENTERPRISE</div>
+      <div class="tier-price">$99<span>/شهر</span></div>
+      <div class="tier-period">أو $990/سنة</div>
+      <div class="tier-divider"></div>
+      <ul class="tier-features">
+        <li><span class="feat-val">∞</span> براندات</li>
+        <li><span class="feat-val">∞</span> كامبينز</li>
+        <li><span class="feat-val">∞</span> موظفين</li>
+        <li><span class="feat-val">∞</span> منشورات</li>
+        <li><span class="feat-val">100GB</span> تخزين</li>
+        <li><span class="feat-val">✓</span> White Label</li>
+      </ul>
+    </div>
+    <!-- AGENCY -->
+    <div class="tier-card">
+      <div class="tier-name">AGENCY PARTNER</div>
+      <div class="tier-price">$199<span>/شهر</span></div>
+      <div class="tier-period">أو $1990/سنة</div>
+      <div class="tier-divider"></div>
+      <ul class="tier-features">
+        <li><span class="feat-val">∞</span> براندات</li>
+        <li><span class="feat-val">20%</span> Reseller Rev</li>
+        <li><span class="feat-val">40h</span> Custom Dev</li>
+        <li><span class="feat-val">99.9%</span> SLA Uptime</li>
+        <li><span class="feat-val">500GB</span> تخزين</li>
+        <li><span class="feat-val">✓ Full</span> White Label</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Permissions Matrix -->
+  <div style="margin-top:32px">
+    <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:12px">مصفوفة الصلاحيات</div>
+    <table class="perm-table">
+      <thead>
+        <tr>
+          <th>الميزة</th>
+          <th>Admin</th>
+          <th>Project Manager</th>
+          <th>Content Creator</th>
+          <th>Graphic Designer</th>
+          <th>Client</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>إنشاء كامبين</td><td><span class="perm-check">✓</span></td><td><span class="perm-check">✓</span></td><td><span class="perm-cross">✗</span></td><td><span class="perm-cross">✗</span></td><td><span class="perm-cross">✗</span></td></tr>
+        <tr><td>تعديل المحتوى</td><td><span class="perm-check">✓</span></td><td><span class="perm-check">✓</span></td><td><span class="perm-check">✓</span></td><td><span class="perm-check">✓</span></td><td><span class="perm-cross">✗</span></td></tr>
+        <tr><td>الموافقة على المحتوى</td><td><span class="perm-check">✓</span></td><td><span class="perm-check">✓</span></td><td><span class="perm-cross">✗</span></td><td><span class="perm-cross">✗</span></td><td><span class="perm-check">✓</span></td></tr>
+        <tr><td>عرض التقارير</td><td><span class="perm-check">✓</span></td><td><span class="perm-check">✓</span></td><td><span class="perm-check">✓</span></td><td><span class="perm-check">✓</span></td><td><span class="perm-check">✓</span></td></tr>
+        <tr><td>إدارة الفريق</td><td><span class="perm-check">✓</span></td><td><span class="perm-cross">✗</span></td><td><span class="perm-cross">✗</span></td><td><span class="perm-cross">✗</span></td><td><span class="perm-cross">✗</span></td></tr>
+        <tr><td>الفواتير والاشتراك</td><td><span class="perm-check">✓</span></td><td><span class="perm-cross">✗</span></td><td><span class="perm-cross">✗</span></td><td><span class="perm-cross">✗</span></td><td><span class="perm-cross">✗</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+</div>
+
+<!-- ═══════════════════════════════════════
+     FEATURES
+════════════════════════════════════════ -->
+<section style="padding:60px 40px;max-width:1200px;margin:0 auto" id="features">
+  <div class="section-header">
+    <div class="section-header-right">
+      <div class="section-icon">⚡</div>
+      <div>
+        <div class="section-title">المميزات الأساسية</div>
+        <div class="section-title-en">CORE FEATURES</div>
+      </div>
+    </div>
+    <div class="section-tag">١٠ وحدات</div>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-head"><div class="feature-emoji">🔐</div><div><div class="feature-title-en">Authentication System</div><div class="feature-title-ar">نظام المصادقة</div></div></div>
+      <div class="feature-accent"></div>
+      <ul class="feature-list">
+        <li>Sign Up / Sign In + Email Verification</li>
+        <li>OAuth: Google, Facebook, LinkedIn</li>
+        <li>2FA (Two-Factor Authentication)</li>
+        <li>Account Lockout + Password Strength Meter</li>
+        <li>Team Invite via Email</li>
+      </ul>
+    </div>
+    <div class="feature-card">
+      <div class="feature-head"><div class="feature-emoji">📊</div><div><div class="feature-title-en">Dashboard</div><div class="feature-title-ar">لوحة التحكم</div></div></div>
+      <div class="feature-accent"></div>
+      <ul class="feature-list">
+        <li>Active Campaigns + Pending Approvals</li>
+        <li>Recent Activity Feed</li>
+        <li>Notifications Center + Quick Actions</li>
+        <li>Performance Charts (Line / Bar / Pie)</li>
+        <li>Dark / Light Mode + Language Switcher</li>
+      </ul>
+    </div>
+    <div class="feature-card">
+      <div class="feature-head"><div class="feature-emoji">🏷️</div><div><div class="feature-title-en">Brand Management</div><div class="feature-title-ar">إدارة البراندات</div></div></div>
+      <div class="feature-accent"></div>
+      <ul class="feature-list">
+        <li>Logo + Colors + Typography + Brand Voice</li>
+        <li>Assets Library: Images / Videos / Templates</li>
+        <li>Brand Analytics + Engagement Rates</li>
+        <li>Social Accounts Connection</li>
+        <li>Custom Domain (Enterprise)</li>
+      </ul>
+    </div>
+    <div class="feature-card">
+      <div class="feature-head"><div class="feature-emoji">🎯</div><div><div class="feature-title-en">Campaign Management</div><div class="feature-title-ar">إدارة الحملات</div></div></div>
+      <div class="feature-accent"></div>
+      <ul class="feature-list">
+        <li>٦ أنواع: Awareness → Retention → Launch</li>
+        <li>٦ مراحل: Planning → Analysis</li>
+        <li>٨ حالات: Draft → Completed → Cancelled</li>
+        <li>Budget + KPIs + Target Audience</li>
+        <li>Campaign Templates جاهزة</li>
+      </ul>
+    </div>
+    <div class="feature-card">
+      <div class="feature-head"><div class="feature-emoji">📝</div><div><div class="feature-title-en">Content Management</div><div class="feature-title-ar">إدارة المحتوى</div></div></div>
+      <div class="feature-accent"></div>
+      <ul class="feature-list">
+        <li>Posts: Image / Carousel / Video / Reel / Story</li>
+        <li>Script Writer + Hook Generator</li>
+        <li>Ads Copy: A/B Testing + Variations</li>
+        <li>Content Calendar: Month / Week / Day</li>
+        <li>Best Time to Post (AI Suggestions)</li>
+      </ul>
+    </div>
+    <div class="feature-card">
+      <div class="feature-head"><div class="feature-emoji">🤝</div><div><div class="feature-title-en">Collaboration & Approvals</div><div class="feature-title-ar">التعاون والمراجعة</div></div></div>
+      <div class="feature-accent"></div>
+      <ul class="feature-list">
+        <li>Comments + @Mentions + Reactions</li>
+        <li>Approval Workflow متعدد المستويات</li>
+        <li>Version History + Change Tracking</li>
+        <li>Real-time Editing (like Google Docs)</li>
+        <li>Activity Log + Audit Trail</li>
+      </ul>
+    </div>
+    <div class="feature-card">
+      <div class="feature-head"><div class="feature-emoji">📈</div><div><div class="feature-title-en">Analytics & Reporting</div><div class="feature-title-ar">التقارير والتحليلات</div></div></div>
+      <div class="feature-accent"></div>
+      <ul class="feature-list">
+        <li>Total Reach + Engagement Rate + Growth</li>
+        <li>Best / Worst Performing Posts</li>
+        <li>Custom Report Builder</li>
+        <li>Export: PDF / Word / PowerPoint / Excel</li>
+        <li>AI-Powered Insights + Predictions</li>
+      </ul>
+    </div>
+    <div class="feature-card">
+      <div class="feature-head"><div class="feature-emoji">🤖</div><div><div class="feature-title-en">AI Features</div><div class="feature-title-ar">مميزات الذكاء الاصطناعي</div></div></div>
+      <div class="feature-accent"></div>
+      <ul class="feature-list">
+        <li>Caption + Hashtag + Hook + CTA Generator</li>
+        <li>AI Image: Background Remover + Upscaler</li>
+        <li>AI Image Generator (DALL-E style)</li>
+        <li>Performance Predictions + Best Time</li>
+        <li>AI Chatbot Assistant</li>
+      </ul>
+    </div>
+    <div class="feature-card">
+      <div class="feature-head"><div class="feature-emoji">👥</div><div><div class="feature-title-en">Team & Client Management</div><div class="feature-title-ar">إدارة الفريق والعملاء</div></div></div>
+      <div class="feature-accent"></div>
+      <ul class="feature-list">
+        <li>٧ أدوار متخصصة + Custom Roles (Enterprise)</li>
+        <li>Workload Management + Team Activity</li>
+        <li>Client Portal (White Label)</li>
+        <li>Client Approvals + Comments</li>
+        <li>Scheduled Reports via Email</li>
+      </ul>
+    </div>
+    <div class="feature-card">
+      <div class="feature-head"><div class="feature-emoji">🔗</div><div><div class="feature-title-en">Integrations</div><div class="feature-title-ar">التكاملات</div></div></div>
+      <div class="feature-accent"></div>
+      <ul class="feature-list">
+        <li>Social: Facebook, Instagram, TikTok, X, LinkedIn</li>
+        <li>Storage: Google Drive, Dropbox, OneDrive</li>
+        <li>Design: Canva, Figma, Adobe CC</li>
+        <li>Communication: Slack, Teams, Discord</li>
+        <li>Automation: Zapier, Make.com, Webhooks</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     ARCHITECTURE
+════════════════════════════════════════ -->
+<div style="background:var(--sidebar-bg);padding:60px 0" id="arch">
+<section style="max-width:1200px;margin:0 auto;padding:0 40px">
+  <div class="section-header" style="border-bottom-color:rgba(255,85,0,0.12)">
+    <div class="section-header-right">
+      <div class="section-icon">🏗️</div>
+      <div>
+        <div class="section-title" style="color:#fff">الهيكل التقني</div>
+        <div class="section-title-en">PLATFORM ARCHITECTURE</div>
+      </div>
+    </div>
+    <div class="section-tag">٦ طبقات</div>
+  </div>
+
+  <div class="arch-stack">
+    <div class="arch-layer">
+      <div class="arch-label">FRONTEND</div>
+      <div class="arch-items">
+        <span class="arch-tag">Next.js + React</span>
+        <span class="arch-tag">TypeScript</span>
+        <span class="arch-tag">Tailwind CSS + shadcn/ui</span>
+        <span class="arch-tag">Client Portal</span>
+        <span class="arch-tag">Admin Panel</span>
+        <span class="arch-tag">React Native (Future)</span>
+      </div>
+    </div>
+    <div class="arch-arrow">↓</div>
+    <div class="arch-layer">
+      <div class="arch-label" style="background:#3B82F6">API LAYER</div>
+      <div class="arch-items">
+        <span class="arch-tag">REST API (Node.js/Express)</span>
+        <span class="arch-tag">GraphQL (Apollo)</span>
+        <span class="arch-tag">WebSockets (Real-time)</span>
+        <span class="arch-tag">Rate Limiting</span>
+        <span class="arch-tag">API Versioning v1/v2</span>
+      </div>
+    </div>
+    <div class="arch-arrow">↓</div>
+    <div class="arch-layer">
+      <div class="arch-label" style="background:#2D9B5A">AUTH LAYER</div>
+      <div class="arch-items">
+        <span class="arch-tag">Supabase Auth (JWT)</span>
+        <span class="arch-tag">OAuth 2.0 (Google, Facebook, LinkedIn)</span>
+        <span class="arch-tag">SSO (SAML 2.0)</span>
+        <span class="arch-tag">2FA (TOTP)</span>
+        <span class="arch-tag">RBAC</span>
+        <span class="arch-tag">Redis Sessions</span>
+      </div>
+    </div>
+    <div class="arch-arrow">↓</div>
+    <div class="arch-layer">
+      <div class="arch-label" style="background:#D97706">DATABASE</div>
+      <div class="arch-items">
+        <span class="arch-tag">PostgreSQL (Supabase)</span>
+        <span class="arch-tag">Row Level Security (RLS)</span>
+        <span class="arch-tag">DB Triggers & Functions</span>
+        <span class="arch-tag">Daily Backup & Recovery</span>
+        <span class="arch-tag">Read Replicas (Future)</span>
+      </div>
+    </div>
+    <div class="arch-arrow">↓</div>
+    <div class="arch-layer">
+      <div class="arch-label" style="background:#8B5CF6">STORAGE</div>
+      <div class="arch-items">
+        <span class="arch-tag">Supabase Storage</span>
+        <span class="arch-tag">CDN (Cloudflare)</span>
+        <span class="arch-tag">Image Optimization (Sharp)</span>
+        <span class="arch-tag">Virus Scanning (ClamAV)</span>
+      </div>
+    </div>
+    <div class="arch-arrow">↓</div>
+    <div class="arch-layer">
+      <div class="arch-label" style="background:#0D0602;border:1px solid rgba(255,85,0,0.3)">INFRASTRUCTURE</div>
+      <div class="arch-items">
+        <span class="arch-tag">Vercel (Frontend)</span>
+        <span class="arch-tag">Railway (Backend)</span>
+        <span class="arch-tag">Redis (Cache)</span>
+        <span class="arch-tag">Stripe (Payments)</span>
+        <span class="arch-tag">SendGrid (Email)</span>
+        <span class="arch-tag">Sentry (Errors)</span>
+        <span class="arch-tag">Pusher (Realtime)</span>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ═══════════════════════════════════════
+     ROADMAP
+════════════════════════════════════════ -->
+<div style="background:var(--sidebar-bg);padding:0 0 60px" id="roadmap">
+<section style="max-width:1200px;margin:0 auto;padding:0 40px">
+  <div class="section-header" style="border-bottom-color:rgba(255,85,0,0.12);padding-top:40px">
+    <div class="section-header-right">
+      <div class="section-icon">🗓️</div>
+      <div>
+        <div class="section-title" style="color:#fff">خطة التطوير</div>
+        <div class="section-title-en">DEVELOPMENT ROADMAP</div>
+      </div>
+    </div>
+    <div class="section-tag">٣٤–٤٨ أسبوع</div>
+  </div>
+
+  <div class="roadmap-grid">
+    <div class="phase-card">
+      <div class="phase-num">1</div>
+      <div class="phase-title">MVP</div>
+      <div class="phase-dur">8–10 أسابيع</div>
+      <div class="phase-goal">إطلاق نسخة أساسية قابلة للبيع</div>
+      <ul class="phase-list">
+        <li>Landing Page + Auth System</li>
+        <li>Dashboard + Brand Management</li>
+        <li>Campaign + Content Management</li>
+        <li>Calendar + Team Management</li>
+        <li>Basic Approvals + Analytics</li>
+        <li>Subscription (Stripe)</li>
+      </ul>
+    </div>
+    <div class="phase-card">
+      <div class="phase-num">2</div>
+      <div class="phase-title">Enhanced</div>
+      <div class="phase-dur">6–8 أسابيع</div>
+      <div class="phase-goal">إضافة مميزات تنافسية</div>
+      <ul class="phase-list">
+        <li>Multi-Brand (up to 20)</li>
+        <li>Advanced Calendar (Drag & Drop)</li>
+        <li>AI Content Assistant (Basic)</li>
+        <li>Advanced Analytics</li>
+        <li>Client Portal (Basic)</li>
+        <li>Google Drive + Slack</li>
+      </ul>
+    </div>
+    <div class="phase-card">
+      <div class="phase-num">3</div>
+      <div class="phase-title">AI & Auto</div>
+      <div class="phase-dur">6–8 أسابيع</div>
+      <div class="phase-goal">الذكاء الاصطناعي والأتمتة</div>
+      <ul class="phase-list">
+        <li>AI Content Generator (GPT-4)</li>
+        <li>AI Image Generator</li>
+        <li>AI Analytics & Predictions</li>
+        <li>Auto-scheduling (Best Time)</li>
+        <li>Hashtag Suggestions</li>
+        <li>AI Chatbot Assistant</li>
+      </ul>
+    </div>
+    <div class="phase-card">
+      <div class="phase-num">4</div>
+      <div class="phase-title">Enterprise</div>
+      <div class="phase-dur">8–10 أسابيع</div>
+      <div class="phase-goal">جاهزية للمؤسسات الكبيرة</div>
+      <ul class="phase-list">
+        <li>Unlimited Brands & Campaigns</li>
+        <li>Custom Roles & Permissions</li>
+        <li>White Label Client Portal</li>
+        <li>SSO + 2FA + Audit Logs</li>
+        <li>Full API Access</li>
+        <li>Zapier + Make.com + Agency Tier</li>
+      </ul>
+    </div>
+    <div class="phase-card">
+      <div class="phase-num">5</div>
+      <div class="phase-title">Mobile</div>
+      <div class="phase-dur">10–12 أسبوع</div>
+      <div class="phase-goal">التوسع للموبايل والمتقدمة</div>
+      <ul class="phase-list">
+        <li>Native iOS & Android App</li>
+        <li>Push Notifications + Offline</li>
+        <li>Camera Integration</li>
+        <li>Advanced Image/Video Editor</li>
+        <li>Live Streaming Integration</li>
+        <li>Templates Marketplace</li>
+      </ul>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ═══════════════════════════════════════
+     REVENUE
+════════════════════════════════════════ -->
+<div style="background:var(--bg2);padding:60px 0" id="revenue">
+<section style="max-width:1200px;margin:0 auto;padding:0 40px">
+  <div class="section-header">
+    <div class="section-header-right">
+      <div class="section-icon">💵</div>
+      <div>
+        <div class="section-title">توقعات الإيرادات</div>
+        <div class="section-title-en">REVENUE PROJECTIONS</div>
+      </div>
+    </div>
+    <div class="section-tag">سنتين</div>
+  </div>
+
+  <table class="revenue-table">
+    <thead>
+      <tr>
+        <th>الباقة</th>
+        <th>مستخدمو سنة ١</th>
+        <th>MRR سنة ١</th>
+        <th>ARR سنة ١</th>
+        <th>مستخدمو سنة ٢</th>
+        <th>MRR سنة ٢</th>
+        <th>ARR سنة ٢</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Free</td><td>2,000</td><td>$0</td><td>$0</td><td>10,000</td><td>$0</td><td>$0</td></tr>
+      <tr><td>Starter $15</td><td>150</td><td>$2,250</td><td>$27,000</td><td>800</td><td>$12,000</td><td>$144,000</td></tr>
+      <tr><td>Pro $39</td><td>80</td><td>$3,120</td><td>$37,440</td><td>400</td><td>$15,600</td><td>$187,200</td></tr>
+      <tr><td>Enterprise $99</td><td>20</td><td>$1,980</td><td>$23,760</td><td>100</td><td>$9,900</td><td>$118,800</td></tr>
+      <tr><td>Agency $199</td><td>5</td><td>$995</td><td>$11,940</td><td>30</td><td>$5,970</td><td>$71,640</td></tr>
+      <tr>
+        <td>TOTAL</td>
+        <td>2,255</td>
+        <td><span class="rev-val">$8,345</span></td>
+        <td><span class="rev-val">$100,140</span></td>
+        <td>11,330</td>
+        <td><span class="rev-val">$43,470</span></td>
+        <td><span class="rev-val">$521,640</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div style="margin-top:36px">
+    <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:16px">مؤشرات النجاح — Success Metrics</div>
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-phase">📅 الشهر ١–٣ | إطلاق</div>
+        <ul class="metric-list">
+          <li><span>Sign-ups</span><strong>100+</strong></li>
+          <li><span>Paid Customers</span><strong>20+</strong></li>
+          <li><span>MRR</span><strong>$500+</strong></li>
+          <li><span>Activation Rate</span><strong>80%+</strong></li>
+        </ul>
+      </div>
+      <div class="metric-card">
+        <div class="metric-phase">📈 الشهر ٤–٦ | نمو</div>
+        <ul class="metric-list">
+          <li><span>Sign-ups</span><strong>500+</strong></li>
+          <li><span>Paid Customers</span><strong>100+</strong></li>
+          <li><span>MRR</span><strong>$3,000+</strong></li>
+          <li><span>Churn Rate</span><strong>&lt;5%</strong></li>
+        </ul>
+      </div>
+      <div class="metric-card">
+        <div class="metric-phase">🚀 الشهر ٧–١٢ | توسع</div>
+        <ul class="metric-list">
+          <li><span>Sign-ups</span><strong>2,000+</strong></li>
+          <li><span>Paid Customers</span><strong>300+</strong></li>
+          <li><span>MRR</span><strong>$10,000+</strong></li>
+          <li><span>Enterprise Trials</span><strong>50+</strong></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ═══════════════════════════════════════
+     NEXT STEPS
+════════════════════════════════════════ -->
+<section style="padding:60px 40px;max-width:1200px;margin:0 auto" id="steps">
+  <div class="section-header">
+    <div class="section-header-right">
+      <div class="section-icon">🚀</div>
+      <div>
+        <div class="section-title">الخطوات التالية</div>
+        <div class="section-title-en">NEXT STEPS</div>
+      </div>
+    </div>
+    <div class="section-tag">جاهز للتنفيذ</div>
+  </div>
+
+  <div class="steps-grid">
+    <div class="step-card"><div class="step-done">✅ الآن</div><div class="step-num">1</div><div class="step-icon">📋</div><div class="step-title">مراجعة البلان</div><div class="step-sub">مراجعة واعتماد هذه الوثيقة</div></div>
+    <div class="step-card"><div class="step-num">2</div><div class="step-icon">🎨</div><div class="step-title">Wireframes & UI/UX</div><div class="step-sub">Figma / Adobe XD</div></div>
+    <div class="step-card"><div class="step-num">3</div><div class="step-icon">🏗️</div><div class="step-title">Infrastructure Setup</div><div class="step-sub">Supabase + Vercel + Stripe</div></div>
+    <div class="step-card"><div class="step-num">4</div><div class="step-icon">💻</div><div class="step-title">Phase 1 MVP</div><div class="step-sub">Next.js + TypeScript</div></div>
+    <div class="step-card"><div class="step-num">5</div><div class="step-icon">📊</div><div class="step-title">Analytics Setup</div><div class="step-sub">Sentry + LogRocket</div></div>
+    <div class="step-card"><div class="step-num">6</div><div class="step-icon">🧪</div><div class="step-title">Testing & QA</div><div class="step-sub">Unit + E2E Tests</div></div>
+    <div class="step-card"><div class="step-num">7</div><div class="step-icon">🚀</div><div class="step-title">Launch Beta</div><div class="step-sub">Soft Launch — Limited Users</div></div>
+    <div class="step-card"><div class="step-num">8</div><div class="step-icon">📈</div><div class="step-title">Iterate on Feedback</div><div class="step-sub">Continuous Improvement</div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     FOOTER
+════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-logo">
+    <img src="https://github.com/buzzagencyy/os/blob/main/PNG.png?raw=true" alt="Buzz Agency">
+    <span class="footer-logo-text">Buzz<span>Agency</span></span>
+  </div>
+  <div style="text-align:center">
+    <div style="font-size:13px;font-weight:700;color:rgba(255,255,255,0.6)">Campaign OS — Platform Plan v3.0</div>
+    <div class="footer-copy" style="margin-top:4px">🚀 LET'S BUILD THE FUTURE! — 2026</div>
+  </div>
+  <div class="footer-links">
+    <a href="mailto:support@buzzagency.com" class="footer-link">support@buzzagency.com</a>
+    <a href="#" class="footer-link">docs.buzzagency.com</a>
+    <a href="#" class="footer-link">status.buzzagency.com</a>
+  </div>
+</footer>
+
+<script>
+// Smooth scroll for TOC dots
+function scrollTo(id){
+  document.querySelector(id)?.scrollIntoView({behavior:'smooth'})
+}
+
+// Active dot tracking
+const sections = ['#cover','#personas','#pricing','#features','#arch','#roadmap','#revenue','#steps']
+const dots = document.querySelectorAll('.toc-dot')
+
+window.addEventListener('scroll',()=>{
+  let current = 0
+  sections.forEach((id,i)=>{
+    const el = document.querySelector(id)
+    if(el && window.scrollY >= el.offsetTop - 200) current = i
+  })
+  dots.forEach((d,i)=>{
+    d.classList.toggle('active', i === current)
+  })
+})
+</script>
+</body>
+</html>
