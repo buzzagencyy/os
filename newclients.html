@@ -10,10 +10,10 @@
   --orange:#FF5400; --orange-hover:#e64c00; --orange-pale:#fff1e9;
   --yellow:#FFC800; --yellow-pale:#fff8e0;
   --berry:#B81B53; --berry-pale:#fbeaf1;
-  --ink:#231207; --body:#4d382a; --muted:#8a6a55; --line:#f0ddd0;
-  --white:#ffffff; --bg:#fdf9f6;
+  --ink:#1C1C24; --body:#3A3A46; --muted:#6E6E7A; --line:#FFE0CE;
+  --white:#ffffff; --bg:#FFFAF6;
   --radius:14px;
-  --shadow-sm:0 2px 8px rgba(35,18,7,.06);
+  --shadow-sm:0 2px 8px rgba(28,28,36,.07);
   --shadow-md:0 8px 28px rgba(255,84,0,.10);
   --font-display:'Archivo','Cairo',sans-serif;
   --font-body:'Manrope','Cairo',sans-serif;
@@ -33,7 +33,7 @@ button{font-family:inherit}
 .brand img{width:36px;height:auto}
 .brand .name{font-family:var(--font-display);font-weight:900;font-size:1.15rem;letter-spacing:.02em}
 .brand .name em{font-style:normal;color:var(--orange)}
-.lang-toggle{display:flex;align-items:center;gap:8px;background:var(--ink);color:var(--white);
+.lang-toggle{display:flex;align-items:center;gap:8px;background:var(--berry);color:var(--white);
   border:none;border-radius:30px;padding:9px 20px;font-weight:700;font-size:.85rem;cursor:pointer;
   transition:background .2s}
 .lang-toggle:hover{background:var(--orange)}
@@ -51,6 +51,22 @@ button{font-family:inherit}
 .hero h1 .accent{color:var(--yellow)}
 .hero p{color:#ffe3d1;max-width:620px;font-size:1.02rem}
 
+/* ===== BRAND SHAPES & MOTION ===== */
+@keyframes bz-spin{to{transform:rotate(360deg)}}
+@keyframes bz-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+@keyframes bz-drift{0%,100%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(12px,-14px) rotate(10deg)}}
+.shape{position:absolute;pointer-events:none;z-index:0}
+.ring{border-radius:50%}
+.stripes{border-radius:50%;background:repeating-linear-gradient(45deg,currentColor 0 8px,transparent 8px 20px)}
+.dotgrid{background-image:radial-gradient(currentColor 2.6px,transparent 2.6px);background-size:19px 19px}
+.anim-spin{animation:bz-spin 26s linear infinite}
+.anim-float{animation:bz-float 7s ease-in-out infinite}
+.anim-drift{animation:bz-drift 10s ease-in-out infinite}
+.hero::before{animation:bz-float 8s ease-in-out infinite}
+.hero::after{animation:bz-drift 12s ease-in-out infinite}
+section{position:relative;overflow:hidden}
+section > .wrap{position:relative;z-index:1}
+
 /* ===== SECTIONS ===== */
 section{padding:60px 0}
 .sec-head{margin-bottom:30px}
@@ -66,7 +82,7 @@ h2{font-family:var(--font-display);color:var(--ink);font-weight:900;font-size:1.
 .editor{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
   box-shadow:var(--shadow-sm);overflow:hidden;position:sticky;top:86px}
 @media(max-width:920px){.editor{position:static}}
-.editor-head{background:var(--ink);color:var(--white);padding:14px 20px;display:flex;align-items:center;gap:10px}
+.editor-head{background:var(--berry);color:var(--white);padding:14px 20px;display:flex;align-items:center;gap:10px}
 .editor-head svg{width:17px;height:17px;color:var(--yellow)}
 .editor-head span{font-weight:800;font-size:.9rem;font-family:var(--font-display)}
 .editor-body{padding:20px}
@@ -90,12 +106,12 @@ h2{font-family:var(--font-display);color:var(--ink);font-weight:900;font-size:1.
 .panel{display:none;border:1.5px solid var(--line);border-radius:0 var(--radius) var(--radius) var(--radius);
   overflow:hidden;background:var(--white);box-shadow:var(--shadow-md)}
 .panel.active{display:block}
-.email-stage{background:#efe6de;padding:34px 14px}
+.email-stage{background:#FFEDE0;padding:34px 14px}
 
-.code-head{display:flex;justify-content:space-between;align-items:center;background:var(--ink);padding:11px 18px;flex-wrap:wrap;gap:8px}
-.code-head span{font-family:'JetBrains Mono',monospace;font-size:.73rem;color:#e8c9ae}
-pre{direction:ltr;text-align:left;background:#33200f;padding:22px;overflow:auto;max-height:560px;
-  font-family:'JetBrains Mono',monospace;font-size:.7rem;line-height:1.6;color:#ffe6d0}
+.code-head{display:flex;justify-content:space-between;align-items:center;background:var(--berry);padding:11px 18px;flex-wrap:wrap;gap:8px}
+.code-head span{font-family:'JetBrains Mono',monospace;font-size:.73rem;color:#FFD6E4}
+pre{direction:ltr;text-align:left;background:#26262E;padding:22px;overflow:auto;max-height:560px;
+  font-family:'JetBrains Mono',monospace;font-size:.7rem;line-height:1.6;color:#FFE0CE}
 
 /* buttons */
 .btn{display:inline-flex;align-items:center;gap:7px;border:none;border-radius:9px;padding:8px 18px;
@@ -137,7 +153,28 @@ pre{direction:ltr;text-align:left;background:#33200f;padding:22px;overflow:auto;
 .tip{color:var(--muted);font-size:.77rem}
 .tip b{color:var(--berry)}
 
-footer{background:var(--ink);color:#e8c9ae;padding:26px 0;font-size:.85rem}
+/* ===== VIEW TABS ===== */
+.viewbar{background:var(--white);border-bottom:1px solid var(--line);position:sticky;top:66px;z-index:40}
+.viewbar .wrap{display:flex;gap:6px;overflow-x:auto}
+.vtab{display:flex;align-items:center;gap:8px;background:transparent;border:none;border-bottom:3px solid transparent;color:var(--muted);padding:15px 22px;font-weight:800;font-size:.92rem;cursor:pointer;transition:color .2s,border-color .2s;white-space:nowrap;font-family:var(--font-display)}
+.vtab svg{width:16px;height:16px}
+.vtab.active{color:var(--orange);border-bottom-color:var(--orange)}
+.vtab:hover:not(.active){color:var(--ink)}
+.view{display:none}
+.view.active-view{display:block}
+/* ===== RESOURCES ===== */
+.res-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px}
+.res-card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;gap:10px;transition:box-shadow .2s,transform .2s}
+.res-card:hover{box-shadow:var(--shadow-md);transform:translateY(-3px)}
+.res-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--white)}
+.res-icon svg{width:22px;height:22px}
+.res-name{font-family:var(--font-display);font-weight:800;font-size:1rem;color:var(--ink)}
+.res-desc{color:var(--muted);font-size:.82rem;flex:1;line-height:1.6}
+.res-link{display:inline-flex;align-items:center;gap:7px;background:var(--orange);color:var(--white);text-decoration:none;border-radius:9px;padding:9px 18px;font-weight:800;font-size:.82rem;transition:background .2s;align-self:flex-start;cursor:pointer}
+.res-link:hover{background:var(--orange-hover)}
+.res-link svg{width:13px;height:13px}
+.res-note{margin-top:26px;background:var(--yellow-pale);border:1.5px solid var(--yellow);border-radius:12px;padding:14px 18px;font-size:.82rem;color:var(--body);line-height:1.7}
+footer{background:var(--ink);color:#FFD9C4;padding:26px 0;font-size:.85rem}
 footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 footer b{color:var(--yellow)}
 @media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}}
@@ -168,8 +205,29 @@ footer b{color:var(--yellow)}
   </div>
 </div>
 
+<!-- ===== VIEW TABS ===== -->
+<nav class="viewbar" aria-label="Sections">
+  <div class="wrap">
+    <button class="vtab active" onclick="switchView('email',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+      <span data-i18n="navEmail">Email Studio</span>
+    </button>
+    <button class="vtab" onclick="switchView('messages',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span data-i18n="navMsgs">Messages</span>
+    </button>
+    <button class="vtab" onclick="switchView('resources',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+      <span data-i18n="navRes">Resources</span>
+    </button>
+  </div>
+</nav>
+
 <!-- ===== SECTION 1: EMAIL STUDIO ===== -->
-<section>
+<section id="view-email" class="view active-view">
+  <div class="shape ring anim-spin" style="width:230px;height:230px;border:28px solid var(--berry);border-top-color:var(--berry-pale);opacity:.16;top:70px;inset-inline-end:-80px" aria-hidden="true"></div>
+  <div class="shape stripes anim-drift" style="width:190px;height:190px;color:var(--berry);opacity:.14;bottom:60px;inset-inline-start:-60px" aria-hidden="true"></div>
+  <div class="shape dotgrid anim-float" style="width:150px;height:105px;color:var(--berry);opacity:.28;top:26px;inset-inline-start:40%" aria-hidden="true"></div>
   <div class="wrap">
     <div class="sec-head">
       <div class="sec-num">01 / EMAIL STUDIO</div>
@@ -194,11 +252,11 @@ footer b{color:var(--yellow)}
           <div class="field"><label for="f-observation" data-i18n="fObservation">Your observation / opportunity</label>
             <textarea id="f-observation" data-token="observation">your brand story isn't yet coming through on the channels where your buyers spend their time</textarea></div>
           <div class="field"><label for="f-sender" data-i18n="fSender">Your name</label>
-            <input id="f-sender" data-token="sender" value="Khaled Mohamed"></div>
+            <input id="f-sender" data-token="sender" value="Ahmed Ramadan"></div>
           <div class="field"><label for="f-title" data-i18n="fTitle">Your title</label>
-            <input id="f-title" data-token="title" value="Co-Founder & Managing Partner"></div>
+            <input id="f-title" data-token="title" value="Account Manager"></div>
           <div class="field"><label for="f-cta" data-i18n="fCta">Booking link</label>
-            <input id="f-cta" data-token="ctaLink" value="https://cal.com/khaled-mohamed-3dgela"></div>
+            <input id="f-cta" data-token="ctaLink" value="https://cal.com/meeting"></div>
           <div class="editor-note"><b data-i18n="noteB">Tip:</b> <span data-i18n="noteTxt">click any paragraph in the preview to edit its wording directly. The exported code always matches what you see.</span></div>
         </div>
       </aside>
@@ -223,7 +281,8 @@ footer b{color:var(--yellow)}
             <span data-i18n="editHint">Editable preview — click any text block inside the email to rewrite it.</span>
           </div>
           <div class="email-stage" id="emailStage">
-<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="direction:ltr">
+<style>@keyframes bz-spin{to{transform:rotate(360deg)}}@keyframes bz-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}</style>
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="direction:ltr">
   <tr><td align="center">
     <table role="presentation" width="640" cellpadding="0" cellspacing="0" style="max-width:640px;width:100%;background:#ffffff;border-radius:20px;overflow:hidden;font-family:Arial,Helvetica,sans-serif;box-shadow:0 4px 24px rgba(35,18,7,.12)">
 
@@ -237,7 +296,13 @@ footer b{color:var(--yellow)}
       </td></tr>
 
       <!-- HERO -->
-      <tr><td style="background:#FF5400;padding:44px 46px 40px" align="left">
+      <tr><td style="background:#FF5400;padding:0" align="left">
+        <div style="position:relative;overflow:hidden;padding:44px 46px 40px">
+        <div style="position:absolute;top:-85px;right:-85px;width:210px;height:210px;border:26px solid #FFC800;border-bottom-color:#B81B53;border-radius:50%;opacity:.9;animation:bz-spin 18s linear infinite"></div>
+        <div style="position:absolute;bottom:-65px;left:-45px;width:160px;height:160px;border-radius:50%;background:repeating-linear-gradient(45deg,rgba(255,255,255,.32) 0 8px,transparent 8px 20px);animation:bz-spin 26s linear infinite reverse"></div>
+        <div style="position:absolute;top:30px;right:150px;width:14px;height:14px;background:#B81B53;border-radius:50%;animation:bz-float 5s ease-in-out infinite"></div>
+        <div style="position:absolute;top:58px;right:120px;width:9px;height:9px;background:#FFC800;border-radius:50%;animation:bz-float 6.5s ease-in-out infinite"></div>
+        <div style="position:relative;z-index:1">
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
           <td align="left" style="vertical-align:middle">
             <table role="presentation" cellpadding="0" cellspacing="0"><tr>
@@ -257,6 +322,8 @@ footer b{color:var(--yellow)}
 
         <div contenteditable="true" spellcheck="false" style="font-size:31px;font-weight:900;color:#ffffff;line-height:1.25;margin-top:34px;letter-spacing:-.3px">Let&rsquo;s make <span class="tok" data-token="company" style="color:#FFC800">Nexta</span> impossible to&nbsp;ignore.</div>
         <div contenteditable="true" spellcheck="false" style="font-size:14px;color:#ffe3d1;line-height:1.7;margin-top:12px">A short note on your growth — from the team behind ERATEC and English Zone Academy.</div>
+      </div>
+        </div>
       </td></tr>
 
       <!-- yellow accent line -->
@@ -264,9 +331,9 @@ footer b{color:var(--yellow)}
 
       <!-- LETTER -->
       <tr><td style="padding:42px 46px 6px" align="left">
-        <div contenteditable="true" spellcheck="false" style="font-size:16px;font-weight:bold;color:#231207">Dear <span class="tok" data-token="firstName">Sarah</span>,</div>
-        <div contenteditable="true" spellcheck="false" style="font-size:14.5px;color:#4d382a;line-height:1.85;margin-top:16px"><span class="tok" data-token="company">Nexta</span> caught our attention — <span class="tok" data-token="compliment">the clarity of your product vision stands out in a crowded market</span>. Brands with that kind of substance are the ones we do our best work for.</div>
-        <div contenteditable="true" spellcheck="false" style="font-size:14.5px;color:#4d382a;line-height:1.85;margin-top:14px">One thing stood out to us, though: <b style="color:#B81B53"><span class="tok" data-token="observation">your brand story isn't yet coming through on the channels where your buyers spend their time</span></b>. In our experience, that is the single highest-leverage thing to fix.</div>
+        <div contenteditable="true" spellcheck="false" style="font-size:16px;font-weight:bold;color:#1C1C24">Dear <span class="tok" data-token="firstName">Sarah</span>,</div>
+        <div contenteditable="true" spellcheck="false" style="font-size:14.5px;color:#3A3A46;line-height:1.85;margin-top:16px"><span class="tok" data-token="company">Nexta</span> caught our attention — <span class="tok" data-token="compliment">the clarity of your product vision stands out in a crowded market</span>. Brands with that kind of substance are the ones we do our best work for.</div>
+        <div contenteditable="true" spellcheck="false" style="font-size:14.5px;color:#3A3A46;line-height:1.85;margin-top:14px">One thing stood out to us, though: <b style="color:#B81B53"><span class="tok" data-token="observation">your brand story isn't yet coming through on the channels where your buyers spend their time</span></b>. In our experience, that is the single highest-leverage thing to fix.</div>
       </td></tr>
 
       <!-- PROOF CARDS -->
@@ -276,19 +343,19 @@ footer b{color:var(--yellow)}
           <tr><td style="background:#fff1e9;border-radius:12px;padding:16px 20px">
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
               <td width="42" style="vertical-align:top"><div style="width:30px;height:30px;background:#FF5400;border-radius:8px;color:#ffffff;font-size:13px;font-weight:900;text-align:center;line-height:30px">01</div></td>
-              <td style="padding-left:14px"><div contenteditable="true" spellcheck="false" style="font-size:13px;color:#231207;line-height:1.7"><b>ERATEC</b> — measurable growth in traffic, conversions and engagement for Egypt&rsquo;s authorized Hitachi VRF distributor.</div></td>
+              <td style="padding-left:14px"><div contenteditable="true" spellcheck="false" style="font-size:13px;color:#1C1C24;line-height:1.7"><b>ERATEC</b> — measurable growth in traffic, conversions and engagement for Egypt&rsquo;s authorized Hitachi VRF distributor.</div></td>
             </tr></table>
           </td></tr>
           <tr><td style="background:#fff8e0;border-radius:12px;padding:16px 20px">
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
-              <td width="42" style="vertical-align:top"><div style="width:30px;height:30px;background:#FFC800;border-radius:8px;color:#231207;font-size:13px;font-weight:900;text-align:center;line-height:30px">02</div></td>
-              <td style="padding-left:14px"><div contenteditable="true" spellcheck="false" style="font-size:13px;color:#231207;line-height:1.7"><b>English Zone Academy</b> — a complete brand &amp; content system, with results the founder called &ldquo;super fast&rdquo;.</div></td>
+              <td width="42" style="vertical-align:top"><div style="width:30px;height:30px;background:#FFC800;border-radius:8px;color:#1C1C24;font-size:13px;font-weight:900;text-align:center;line-height:30px">02</div></td>
+              <td style="padding-left:14px"><div contenteditable="true" spellcheck="false" style="font-size:13px;color:#1C1C24;line-height:1.7"><b>English Zone Academy</b> — a complete brand &amp; content system, with results the founder called &ldquo;super fast&rdquo;.</div></td>
             </tr></table>
           </td></tr>
           <tr><td style="background:#fbeaf1;border-radius:12px;padding:16px 20px">
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
               <td width="42" style="vertical-align:top"><div style="width:30px;height:30px;background:#B81B53;border-radius:8px;color:#ffffff;font-size:13px;font-weight:900;text-align:center;line-height:30px">03</div></td>
-              <td style="padding-left:14px"><div contenteditable="true" spellcheck="false" style="font-size:13px;color:#231207;line-height:1.7"><b>One team, end to end</b> — brand, content, performance media and web &amp; app development under one roof.</div></td>
+              <td style="padding-left:14px"><div contenteditable="true" spellcheck="false" style="font-size:13px;color:#1C1C24;line-height:1.7"><b>One team, end to end</b> — brand, content, performance media and web &amp; app development under one roof.</div></td>
             </tr></table>
           </td></tr>
         </table>
@@ -297,7 +364,7 @@ footer b{color:var(--yellow)}
       <!-- THE ASK -->
       <tr><td style="padding:28px 46px 0" align="left">
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
-          <td style="background:#231207;border-radius:14px;padding:24px 28px">
+          <td style="background:#B81B53;border-radius:14px;padding:24px 28px">
             <div contenteditable="true" spellcheck="false" style="font-size:14.5px;color:#ffffff;line-height:1.8">We&rsquo;ve prepared <b style="color:#FFC800">three specific growth ideas for <span class="tok" data-token="company">Nexta</span></b> — they&rsquo;re yours either way. We&rsquo;d simply rather walk you through them properly. Fifteen minutes is all we ask.</div>
           </td>
         </tr></table>
@@ -305,22 +372,22 @@ footer b{color:var(--yellow)}
 
       <!-- CTA -->
       <tr><td align="center" style="padding:32px 46px 40px">
-        <a class="tok-href" href="https://cal.com/khaled-mohamed-3dgela" style="background:#FF5400;color:#ffffff;text-decoration:none;font-weight:900;font-size:14.5px;letter-spacing:.4px;padding:16px 46px;border-radius:40px;display:inline-block">Book a 15-minute call &nbsp;&rarr;</a>
-        <div style="font-size:11.5px;color:#8a6a55;margin-top:14px">Prefer email? Just hit reply — we respond within hours.</div>
+        <a class="tok-href" href="https://cal.com/meeting" style="background:#FF5400;color:#ffffff;text-decoration:none;font-weight:900;font-size:14.5px;letter-spacing:.4px;padding:16px 46px;border-radius:40px;display:inline-block">Book a 15-minute call &nbsp;&rarr;</a>
+        <div style="font-size:11.5px;color:#6E6E7A;margin-top:14px">Prefer email? Just hit reply — we respond within hours.</div>
       </td></tr>
 
       <!-- SIGNATURE -->
       <tr><td style="padding:0 46px 38px" align="left">
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
-          <td style="border-top:2px solid #f0e5dc;padding-top:22px">
+          <td style="border-top:2px solid #FFE0CE;padding-top:22px">
             <table role="presentation" cellpadding="0" cellspacing="0"><tr>
-              <td style="vertical-align:middle"><div style="width:44px;height:44px;background:#FF5400;border-radius:50%;color:#ffffff;font-size:17px;font-weight:900;text-align:center;line-height:44px" class="tok-initial">K</div></td>
+              <td style="vertical-align:middle"><div style="width:44px;height:44px;background:#FF5400;border-radius:50%;color:#ffffff;font-size:17px;font-weight:900;text-align:center;line-height:44px" class="tok-initial">A</div></td>
               <td style="padding-left:14px;vertical-align:middle">
-                <div style="font-size:15px;color:#231207;font-weight:900"><span class="tok" data-token="sender">Khaled Mohamed</span></div>
-                <div style="font-size:12px;color:#8a6a55;margin-top:2px"><span class="tok" data-token="title">Co-Founder &amp; Managing Partner</span> · BUZZ Agency</div>
+                <div style="font-size:15px;color:#1C1C24;font-weight:900"><span class="tok" data-token="sender">Ahmed Ramadan</span></div>
+                <div style="font-size:12px;color:#6E6E7A;margin-top:2px"><span class="tok" data-token="title">Account Manager</span> · BUZZ Agency</div>
                 <div style="font-size:12px;margin-top:6px">
                   <a href="https://buzz-agency.com" style="color:#FF5400;text-decoration:none;font-weight:bold">buzz-agency.com</a>
-                  <span style="color:#c9b3a3">&nbsp;·&nbsp;</span><span style="color:#8a6a55">+20 155 541 0375</span>
+                  <span style="color:#C6C6CE">&nbsp;·&nbsp;</span><span style="color:#6E6E7A">+20 155 541 0375</span>
                 </div>
               </td>
             </tr></table>
@@ -329,14 +396,14 @@ footer b{color:var(--yellow)}
       </td></tr>
 
       <!-- FOOTER -->
-      <tr><td style="background:#231207;padding:24px 46px" align="left">
+      <tr><td style="background:#1C1C24;padding:24px 46px" align="left">
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
           <td align="left">
             <div style="font-size:13px;font-weight:900;color:#ffffff;letter-spacing:2px">BUZZ<span style="color:#FFC800">.</span></div>
-            <div style="font-size:10.5px;color:#a58975;line-height:1.8;margin-top:6px">13 Ibn Afan St., Dokki, Giza, Egypt<br>@buzz_officiall · Instagram · TikTok · Facebook</div>
+            <div style="font-size:10.5px;color:#9A9AA6;line-height:1.8;margin-top:6px">13 Ibn Afan St., Dokki, Giza, Egypt<br>@buzz_officiall · Instagram · TikTok · Facebook</div>
           </td>
           <td align="right" style="vertical-align:bottom">
-            <div style="font-size:10px;color:#7a5c48;line-height:1.7;text-align:right">Not a fit? Reply &ldquo;no thanks&rdquo;<br>and we won&rsquo;t write again.</div>
+            <div style="font-size:10px;color:#8F8F9B;line-height:1.7;text-align:right">Not a fit? Reply &ldquo;no thanks&rdquo;<br>and we won&rsquo;t write again.</div>
           </td>
         </tr></table>
       </td></tr>
@@ -373,14 +440,65 @@ footer b{color:var(--yellow)}
 </section>
 
 <!-- ===== SECTION 2: MESSAGE LIBRARY ===== -->
-<section class="lib">
+<section class="lib view" id="view-messages">
+  <div class="shape ring anim-float" style="width:200px;height:200px;border:24px solid var(--yellow);border-bottom-color:var(--orange);opacity:.35;top:-60px;inset-inline-start:-60px" aria-hidden="true"></div>
+  <div class="shape stripes anim-spin" style="width:170px;height:170px;color:var(--berry);opacity:.15;bottom:-40px;inset-inline-end:-40px" aria-hidden="true"></div>
+  <div class="shape dotgrid anim-drift" style="width:130px;height:95px;color:var(--orange);opacity:.3;top:40px;inset-inline-end:14%" aria-hidden="true"></div>
   <div class="wrap">
     <div class="sec-head">
       <div class="sec-num">02 / MESSAGE LIBRARY</div>
       <h2 data-i18n="s2Title">Ready-to-send messages</h2>
-      <p class="sec-desc" data-i18n="s2Desc">Every message in English and Arabic — switch per card, copy in one click. Replace the [brackets] with real details before sending.</p>
+      <p class="sec-desc" data-i18n="s2Desc">Every message is editable — click the text to rewrite it, switch language per card, and copy in one click. Replace the [brackets] with real details before sending.</p>
     </div>
     <div class="msg-grid" id="messages"></div>
+  </div>
+</section>
+
+<!-- ===== SECTION 3: RESOURCES ===== -->
+<section class="view" id="view-resources">
+  <div class="shape ring anim-float" style="width:210px;height:210px;border:26px solid var(--berry);border-top-color:var(--yellow);opacity:.15;top:-50px;inset-inline-end:-60px" aria-hidden="true"></div>
+  <div class="shape stripes anim-spin" style="width:170px;height:170px;color:var(--orange);opacity:.15;bottom:-40px;inset-inline-start:-40px" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-num">03 / RESOURCES</div>
+      <h2 data-i18n="s3Title">Team resources</h2>
+      <p class="sec-desc" data-i18n="s3Desc">Pricing, portfolio and brand files — everything the team needs alongside an outreach message.</p>
+    </div>
+    <div class="res-grid">
+      <div class="res-card">
+        <div class="res-icon" style="background:var(--berry)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></div>
+        <div class="res-name" data-i18n="rPricing">Services &amp; Pricing Proposal</div>
+        <div class="res-desc" data-i18n="rPricingD">The official Buzz packages &amp; pricing PDF — attach it after the first positive reply.</div>
+        <a class="res-link" href="Buzz%20Agency%20-%20Services%20%26%20Pricing%20Proposal.pdf" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg>
+          <span data-i18n="resOpen">Open</span></a>
+      </div>
+      <div class="res-card">
+        <div class="res-icon" style="background:var(--orange)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+        <div class="res-name" data-i18n="rPortfolio">Agency Portfolio</div>
+        <div class="res-desc" data-i18n="rPortfolioD">Five-page portfolio: services, process and client case studies.</div>
+        <a class="res-link" href="buzz-agency-portfolio.pdf" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg>
+          <span data-i18n="resOpen">Open</span></a>
+      </div>
+      <div class="res-card">
+        <div class="res-icon" style="background:var(--yellow);color:var(--ink)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/></svg></div>
+        <div class="res-name" data-i18n="rLogo">Brand Logo (PNG + SVG)</div>
+        <div class="res-desc" data-i18n="rLogoD">Official logo files for proposals, decks and designs.</div>
+        <a class="res-link" href="Logo.png" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg>
+          <span data-i18n="resOpen">Open</span></a>
+      </div>
+      <div class="res-card">
+        <div class="res-icon" style="background:var(--ink)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M20 21a8 8 0 0 0-16 0"/></svg></div>
+        <div class="res-name" data-i18n="rProfile">Buzz Profile Image</div>
+        <div class="res-desc" data-i18n="rProfileD">Profile / avatar image for social and messaging accounts.</div>
+        <a class="res-link" href="Buzz%20Profile.jpg" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg>
+          <span data-i18n="resOpen">Open</span></a>
+      </div>
+    </div>
+    <div class="res-note" data-i18n="resNote">Keep this page in the same folder as the files above so the links work. When we merge this into the team dashboard, these will move to Supabase Storage with team-level access.</div>
   </div>
 </section>
 
@@ -409,8 +527,17 @@ const I18N = {
   editHint:'Editable preview — click any text block inside the email to rewrite it.',
   copyCode:'Copy code', copy:'Copy', copied:'✓ Copied!',
   s2Title:'Ready-to-send messages',
-  s2Desc:'Every message in English and Arabic — switch per card, copy in one click. Replace the [brackets] with real details before sending.',
-  tipLabel:'Tip:'
+  s2Desc:'Every message is editable — click the text to rewrite it, switch language per card, and copy in one click. Replace the [brackets] with real details before sending.',
+  tipLabel:'Tip:',
+  navEmail:'Email Studio', navMsgs:'Messages', navRes:'Resources',
+  s3Title:'Team resources',
+  s3Desc:'Pricing, portfolio and brand files — everything the team needs alongside an outreach message.',
+  rPricing:'Services & Pricing Proposal', rPricingD:'The official Buzz packages & pricing PDF — attach it after the first positive reply.',
+  rPortfolio:'Agency Portfolio', rPortfolioD:'Five-page portfolio: services, process and client case studies.',
+  rLogo:'Brand Logo (PNG + SVG)', rLogoD:'Official logo files for proposals, decks and designs.',
+  rProfile:'Buzz Profile Image', rProfileD:'Profile / avatar image for social and messaging accounts.',
+  resOpen:'Open',
+  resNote:'Keep this page in the same folder as the files above so the links work. When we merge this into the team dashboard, these will move to Supabase Storage with team-level access.'
  },
  ar:{
   brandSub:'استوديو الرسائل',
@@ -427,8 +554,17 @@ const I18N = {
   editHint:'بريفيو قابل للتعديل — دوس على أي نص جوا الإيميل وعدّله.',
   copyCode:'انسخ الكود', copy:'انسخ', copied:'✓ اتنسخ!',
   s2Title:'رسائل جاهزة للإرسال',
-  s2Desc:'كل رسالة بالعربي والإنجليزي — بدّل من كل كارت وانسخ بضغطة. بدّل الأقواس [ ] بمعلومات حقيقية قبل الإرسال.',
-  tipLabel:'نصيحة:'
+  s2Desc:'كل رسالة قابلة للتعديل — دوس على النص وعدّله، بدّل اللغة من كل كارت، وانسخ بضغطة. بدّل الأقواس [ ] بمعلومات حقيقية قبل الإرسال.',
+  tipLabel:'نصيحة:',
+  navEmail:'استوديو الإيميل', navMsgs:'الرسائل', navRes:'الملفات',
+  s3Title:'ملفات الفريق',
+  s3Desc:'الأسعار والبورتفوليو وملفات البراند — كل اللي الفريق محتاجه مع رسائل الـ outreach.',
+  rPricing:'عرض الخدمات والأسعار', rPricingD:'ملف باقات وأسعار Buzz الرسمي — ابعته بعد أول رد إيجابي.',
+  rPortfolio:'بورتفوليو الوكالة', rPortfolioD:'بورتفوليو 5 صفحات: الخدمات وطريقة الشغل وقصص العملاء.',
+  rLogo:'لوجو البراند (PNG + SVG)', rLogoD:'ملفات اللوجو الرسمية للعروض والتصميمات.',
+  rProfile:'صورة بروفايل Buzz', rProfileD:'صورة البروفايل لحسابات السوشيال والرسائل.',
+  resOpen:'افتح',
+  resNote:'خلي الصفحة دي في نفس الفولدر مع الملفات عشان اللينكات تشتغل. لما ندمجها في الداشبورد، الملفات هتتنقل على Supabase Storage بصلاحيات للفريق.'
  }
 };
 let lang = 'en';
@@ -501,8 +637,8 @@ const messages = [
  {
   t_en:'Follow-up DM (after connect)', t_ar:'بعد قبول التوصيل',
   c_en:'Send it a day or two after they accept', c_ar:'ابعتها بعد القبول بيوم أو اتنين',
-  en:"Thanks for connecting, [Name]! Quick question — who handles [Company]'s digital marketing right now?\nWe recently helped [relevant client] achieve [specific result]. I put together 2–3 quick ideas for [Company] — mind if I share them? No strings attached.\nOr if easier, here's my calendar for a free 15-min call: cal.com/khaled-mohamed-3dgela",
-  ar:"شكرًا إنك قبلت التواصل يا [الاسم]! 🙌\nسؤال سريع — مين اللي بيدير التسويق الرقمي في [الشركة] حاليًا؟\nإحنا ساعدنا [عميل مشابه] يحقق [نتيجة محددة]، وجهزت 2–3 أفكار سريعة تنفع لـ [الشركة] — أشاركها معاك؟ من غير أي التزام.\nولو أسهل، ده لينك مكالمة 15 دقيقة مجانية: cal.com/khaled-mohamed-3dgela",
+  en:"Thanks for connecting, [Name]! Quick question — who handles [Company]'s digital marketing right now?\nWe recently helped [relevant client] achieve [specific result]. I put together 2–3 quick ideas for [Company] — mind if I share them? No strings attached.\nOr if easier, here's my calendar for a free 15-min call: cal.com/meeting",
+  ar:"شكرًا إنك قبلت التواصل يا [الاسم]! 🙌\nسؤال سريع — مين اللي بيدير التسويق الرقمي في [الشركة] حاليًا؟\nإحنا ساعدنا [عميل مشابه] يحقق [نتيجة محددة]، وجهزت 2–3 أفكار سريعة تنفع لـ [الشركة] — أشاركها معاك؟ من غير أي التزام.\nولو أسهل، ده لينك مكالمة 15 دقيقة مجانية: cal.com/meeting",
   tip_en:"Wait a day or two after they accept — don't message instantly", tip_ar:'استنى يوم أو اتنين بعد القبول — متبعتش في نفس اللحظة'
  },
  {
@@ -515,8 +651,8 @@ const messages = [
  {
   t_en:'Cold Message', t_ar:'رسالة باردة',
   c_en:'For someone you never met (LinkedIn or short email)', c_ar:'لحد متعرفوش خالص (لينكد إن أو إيميل قصير)',
-  en:"Hi [Name], I'll get straight to the point 🙂\nI looked at [Company] and noticed [specific observation]. At Buzz, we solved the same problem for [similar client] — the result was [specific result].\nI have 3 specific ideas for [Company]. Worth a 15-minute call?\n📅 cal.com/khaled-mohamed-3dgela",
-  ar:"أهلاً [الاسم]، هدخل في الموضوع على طول 🙂\nبصيت على [الشركة] ولاحظت [ملاحظة محددة: المحتوى مش منتظم / الصفحة محتاجة هوية أقوى / مفيش إعلانات ممولة].\nإحنا في Buzz حلّينا نفس المشكلة لـ [عميل مشابه] والنتيجة كانت [نتيجة].\nعندي 3 أفكار محددة لـ [الشركة] — تنفع مكالمة 15 دقيقة؟\n📅 cal.com/khaled-mohamed-3dgela",
+  en:"Hi [Name], I'll get straight to the point 🙂\nI looked at [Company] and noticed [specific observation]. At Buzz, we solved the same problem for [similar client] — the result was [specific result].\nI have 3 specific ideas for [Company]. Worth a 15-minute call?\n📅 cal.com/meeting",
+  ar:"أهلاً [الاسم]، هدخل في الموضوع على طول 🙂\nبصيت على [الشركة] ولاحظت [ملاحظة محددة: المحتوى مش منتظم / الصفحة محتاجة هوية أقوى / مفيش إعلانات ممولة].\nإحنا في Buzz حلّينا نفس المشكلة لـ [عميل مشابه] والنتيجة كانت [نتيجة].\nعندي 3 أفكار محددة لـ [الشركة] — تنفع مكالمة 15 دقيقة؟\n📅 cal.com/meeting",
   tip_en:'The specific observation in the first two lines is what earns the reply', tip_ar:'الملاحظة المحددة في أول سطرين هي اللي بتفرق بين الرد والتجاهل'
  },
  {
@@ -555,8 +691,8 @@ function renderMessages(){
         '</div>'+
       '</div>'+
       '<div class="msg-body">'+
-        '<div class="msg-text '+(lang==='en'?'active':'')+'" data-dir="ltr" id="msg-'+i+'-en">'+m.en+'</div>'+
-        '<div class="msg-text '+(lang==='ar'?'active':'')+'" data-dir="rtl" id="msg-'+i+'-ar">'+m.ar+'</div>'+
+        '<div class="msg-text '+(lang==='en'?'active':'')+'" contenteditable="true" spellcheck="false" data-dir="ltr" id="msg-'+i+'-en">'+m.en+'</div>'+
+        '<div class="msg-text '+(lang==='ar'?'active':'')+'" contenteditable="true" spellcheck="false" data-dir="rtl" id="msg-'+i+'-ar">'+m.ar+'</div>'+
         '<div class="msg-foot">'+
           '<div class="tip"><b>'+dict.tipLabel+'</b> '+(lang==='ar'?m.tip_ar:m.tip_en)+'</div>'+
           '<button class="btn btn-yellow" onclick="copyMsg('+i+',this)">'+
@@ -578,6 +714,14 @@ function setMsgLang(i,l,btn){
 function copyMsg(i,btn){
   const text = document.getElementById('msg-'+i+'-'+langState[i]).innerText;
   navigator.clipboard.writeText(text).then(()=>flash(btn));
+}
+
+function switchView(id,btn){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active-view'));
+  document.getElementById('view-'+id).classList.add('active-view');
+  document.querySelectorAll('.vtab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
 /* init */
