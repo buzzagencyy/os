@@ -978,6 +978,10 @@ select{
           <button data-section="users"><span class="icon">👥</span> المستخدمين</button>
           <button data-section="settings"><span class="icon">⚙️</span> الإعدادات</button>
         </div>
+        <div class="nav-group">
+          <div class="nav-label">الأدوات</div>
+          <button onclick="window.open('newclients.html','_blank')"><span class="icon">📨</span> Outreach Studio</button>
+        </div>
       </nav>
 
       <div class="sidebar-footer">
@@ -1229,6 +1233,10 @@ select{
             <span class="perm-label">✨ Hero/Idea</span>
             <label class="toggle"><input type="checkbox" id="p_hero" checked><span class="toggle-slider"></span></label>
           </div>
+          <div class="perm-item" style="border-color:#FED7AA;background:#FFF7ED">
+            <span class="perm-label" style="color:#9A3412">📨 Outreach Studio</span>
+            <label class="toggle"><input type="checkbox" id="p_outreach" checked><span class="toggle-slider"></span></label>
+          </div>
           <div class="perm-item" style="grid-column:1/-1">
             <span class="perm-label">💾 Save</span>
             <label class="toggle"><input type="checkbox" id="p_save" checked><span class="toggle-slider"></span></label>
@@ -1264,7 +1272,7 @@ let campaigns = [];
 let users = [];
 let editingUserId = null;
 
-const PERM_KEYS = ["overview","objectives","scripts","posts","stories","ads","calendar","phases","kpis","budget","branding","hero","save"];
+const PERM_KEYS = ["overview","objectives","scripts","posts","stories","ads","calendar","phases","kpis","budget","branding","hero","save","outreach"];
 
 document.addEventListener("DOMContentLoaded", () => {
   const cfg = getConfig();
