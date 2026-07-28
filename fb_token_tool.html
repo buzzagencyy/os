@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>أداة توكن فيسبوك الدائم — English Zone</title>
+<style>
+  :root{
+    --bg:#0f1419; --card:#1a2029; --line:#2a3340; --ink:#e8edf2;
+    --muted:#8b98a5; --accent:#1877f2; --ok:#2ecc71; --warn:#f0a020; --err:#e74c3c;
+    --mono:'SF Mono',ui-monospace,Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:system-ui,'Segoe UI',Tahoma,sans-serif;line-height:1.7;padding:24px}
+  .wrap{max-width:720px;margin:0 auto}
+  h1{font-size:1.35rem;margin:0 0 4px}
+  .sub{color:var(--muted);font-size:.9rem;margin-bottom:24px}
+  .step{background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:20px;margin-bottom:16px}
+  .step h2{font-size:1.05rem;margin:0 0 12px;display:flex;align-items:center;gap:10px}
+  .num{background:var(--accent);color:#fff;width:26px;height:26px;border-radius:50%;
+    display:grid;place-items:center;font-size:.85rem;flex:none}
+  label{display:block;font-size:.85rem;color:var(--muted);margin:12px 0 5px}
+  input,textarea{width:100%;background:#0d1116;border:1px solid var(--line);
+    color:var(--ink);border-radius:9px;padding:11px;font-family:var(--mono);font-size:.82rem}
+  textarea{resize:vertical;min-height:70px;word-break:break-all}
+  button{background:var(--accent);color:#fff;border:0;border-radius:9px;
+    padding:11px 20px;font-size:.92rem;font-weight:600;cursor:pointer;margin-top:14px}
+  button:hover{filter:brightness(1.1)}
+  button:disabled{opacity:.5;cursor:not-allowed}
+  .out{margin-top:14px;padding:13px;border-radius:9px;font-family:var(--mono);
+    font-size:.8rem;white-space:pre-wrap;word-break:break-all;display:none}
+  .out.show{display:block}
+  .out.ok{background:rgba(46,204,113,.1);border:1px solid var(--ok)}
+  .out.err{background:rgba(231,76,60,.1);border:1px solid var(--err)}
+  .out.warn{background:rgba(240,160,32,.1);border:1px solid var(--warn)}
+  .pill{display:inline-block;padding:2px 9px;border-radius:20px;font-size:.72rem;margin-inline-start:6px}
+  .pill.never{background:var(--ok);color:#04210f}
+  .pill.exp{background:var(--warn);color:#2a1c04}
+  .copy{background:#2a3340;padding:5px 12px;font-size:.75rem;margin:8px 6px 0 0;display:inline-block}
+  .hint{font-size:.8rem;color:var(--muted);margin-top:8px}
+  .pagecard{background:#0d1116;border:1px solid var(--line);border-radius:10px;
+    padding:13px;margin-top:11px}
+  .pagecard .nm{font-weight:600;font-size:.95rem;margin-bottom:6px;font-family:system-ui}
+  a{color:var(--accent)}
+  .warnbox{background:rgba(240,160,32,.08);border:1px solid var(--warn);border-radius:10px;
+    padding:12px;font-size:.83rem;margin-bottom:20px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🔑 أداة التوكن الدائم — فيسبوك / إنستجرام</h1>
+  <div class="sub">English Zone Bot — بتشتغل محليًا في متصفحك، مفيش داتا بتتبعت لأي حد.</div>
+
+  <div class="warnbox">
+    ⚠️ الأداة دي بتكلّم Facebook Graph مباشرة من متصفحك. التوكنز مابتخرجش من جهازك.
+    متشاركش الصفحة دي ولا صورها مع حد بعد ما تحط فيها التوكنز.
+  </div>
+
+  <div class="step">
+    <h2><span class="num">1</span> بياناتك من الـ App</h2>
+    <div class="hint">من developers.facebook.com → App settings → Basic</div>
+    <label>App ID</label>
+    <input id="appId" placeholder="مثال: 1027877323431861">
+    <label>App Secret (دوس Show عشان تنسخه)</label>
+    <input id="appSecret" placeholder="السلسلة الطويلة اللي جنب App Secret">
+  </div>
+
+  <div class="step">
+    <h2><span class="num">2</span> توكن اليوزر القصير</h2>
+    <div class="hint">من Graph API Explorer — اختار Meta App = Automation (Ai)، و User or Page = <b>User Token</b>، ضيف الصلاحيات، Generate، وانسخه هنا</div>
+    <label>Short-lived User Token</label>
+    <textarea id="shortTok" placeholder="EAAOm2Va8X7UBS..."></textarea>
+    <button id="btnLong">حوّله لطويل المدى (٦٠ يوم) ⬇️</button>
+    <div id="outLong" class="out"></div>
+  </div>
+
+  <div class="step">
+    <h2><span class="num">3</span> اطلع توكنز الصفحات الدائمة</h2>
+    <div class="hint">هياخد التوكن الطويل من فوق ويجيب كل صفحاتك، وكل صفحة توكنها الدائم</div>
+    <button id="btnPages" disabled>جيب الصفحات وتوكناتها 📄</button>
+    <div id="outPages" class="out"></div>
+    <div id="pagesList"></div>
+  </div>
+
+  <div class="step">
+    <h2><span class="num">4</span> افحص أي توكن (اختياري)</h2>
+    <div class="hint">تأكد إن التوكن Expires = Never</div>
+    <label>التوكن اللي عايز تفحصه</label>
+    <textarea id="chkTok" placeholder="الصق أي توكن للفحص"></textarea>
+    <button id="btnCheck">افحص التوكن 🔍</button>
+    <div id="outCheck" class="out"></div>
+  </div>
+</div>
+
+<script>
+const G = 'https://graph.facebook.com/v24.0';
+const $ = id => document.getElementById(id);
+let longToken = '';
+
+function show(el, cls, txt){ el.className = 'out show ' + cls; el.textContent = txt; }
+
+// خطوة 2: تطويل توكن اليوزر
+$('btnLong').onclick = async () => {
+  const id = $('appId').value.trim();
+  const sec = $('appSecret').value.trim();
+  const sh = $('shortTok').value.trim();
+  if(!id || !sec || !sh){ show($('outLong'),'err','❌ املا الـ App ID و Secret و التوكن القصير الأول'); return; }
+  show($('outLong'),'warn','⏳ بيحوّل...');
+  try{
+    const u = `${G}/oauth/access_token?grant_type=fb_exchange_token&client_id=${encodeURIComponent(id)}&client_secret=${encodeURIComponent(sec)}&fb_exchange_token=${encodeURIComponent(sh)}`;
+    const r = await fetch(u); const d = await r.json();
+    if(d.error){ show($('outLong'),'err','❌ '+d.error.message); return; }
+    longToken = d.access_token;
+    const days = d.expires_in ? Math.round(d.expires_in/86400) : '≈60';
+    show($('outLong'),'ok',`✅ اتعمل توكن طويل المدى (${days} يوم)\nدلوقتي دوس زرار الخطوة 3.`);
+    $('btnPages').disabled = false;
+  }catch(e){ show($('outLong'),'err','❌ '+e.message); }
+};
+
+// خطوة 3: جيب الصفحات وتوكناتها الدائمة
+$('btnPages').onclick = async () => {
+  if(!longToken){ show($('outPages'),'err','❌ اعمل الخطوة 2 الأول'); return; }
+  show($('outPages'),'warn','⏳ بيجيب الصفحات...');
+  try{
+    const r = await fetch(`${G}/me/accounts?fields=name,access_token,id&access_token=${encodeURIComponent(longToken)}`);
+    const d = await r.json();
+    if(d.error){ show($('outPages'),'err','❌ '+d.error.message); return; }
+    if(!d.data || !d.data.length){ show($('outPages'),'warn','⚠️ مفيش صفحات ظهرت. تأكد إنك وافقت على الصفحات في شاشة الموافقة.'); return; }
+    show($('outPages'),'ok',`✅ طلعت ${d.data.length} صفحة. توكناتها دي دائمة (Never).`);
+    const box = $('pagesList'); box.innerHTML = '';
+    d.data.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'pagecard';
+      card.innerHTML = `<div class="nm">📄 ${p.name}</div>
+        <div style="font-size:.75rem;color:var(--muted)">Page ID: ${p.id}</div>
+        <textarea readonly style="margin-top:8px">${p.access_token}</textarea>
+        <button class="copy" onclick="navigator.clipboard.writeText('${p.access_token}');this.textContent='اتنسخ ✓'">انسخ التوكن</button>
+        <button class="copy" onclick="navigator.clipboard.writeText('${p.id}');this.textContent='اتنسخ ✓'">انسخ الـ ID</button>`;
+      box.appendChild(card);
+    });
+  }catch(e){ show($('outPages'),'err','❌ '+e.message); }
+};
+
+// خطوة 4: فحص توكن
+$('btnCheck').onclick = async () => {
+  const t = $('chkTok').value.trim();
+  const id = $('appId').value.trim(); const sec = $('appSecret').value.trim();
+  if(!t){ show($('outCheck'),'err','❌ الصق توكن الأول'); return; }
+  show($('outCheck'),'warn','⏳ بيفحص...');
+  try{
+    const appTok = (id&&sec) ? `${id}|${sec}` : t;
+    const r = await fetch(`${G}/debug_token?input_token=${encodeURIComponent(t)}&access_token=${encodeURIComponent(appTok)}`);
+    const d = await r.json();
+    if(d.error){ show($('outCheck'),'err','❌ '+d.error.message); return; }
+    const info = d.data || {};
+    const exp = info.expires_at;
+    const expTxt = (exp===0) ? 'Never ♾️' : new Date(exp*1000).toLocaleString('ar-EG');
+    const isNever = exp===0;
+    const scopes = (info.scopes||[]).join(', ');
+    show($('outCheck'), isNever?'ok':'warn',
+      `Type: ${info.type||'?'}\nExpires: ${expTxt}\nValid: ${info.is_valid?'✅':'❌'}\nScopes: ${scopes}`);
+  }catch(e){ show($('outCheck'),'err','❌ '+e.message); }
+};
+</script>
+</body>
+</html>
